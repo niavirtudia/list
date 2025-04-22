@@ -1,5 +1,5 @@
 {
   "consentRequired": true,
-  "consentStateValue": "unknown",
-  "promptIfUnknown": true
+  "consentStateValue": "accepted",
+  "promptIfUnknown": false
 }
