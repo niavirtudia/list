@@ -1,15 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="refresh" content="0; url='https://links.modenyania.com/'" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Modenyania List Style Links</title>
-    <link href="https://data.modenyania.com/ico.svg" rel="mask-icon" color="#D0011B"/>
-    <link href="https://data.modenyania.com/ico.svg" rel="icon" type="image/svg+xml"/>
-    <link href='https://data.modenyania.com/favicon.ico' rel='icon' type='image/x-icon'/>
-    <link href='https://data.modenyania.com/ico.png' rel='icon' type='image/png'/>
-  </head>
-  <body></body>
-</html>
+List of Modenyania style links
