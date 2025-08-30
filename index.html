@@ -13,15 +13,6 @@
     <link href='https://data.modenyania.com/ico.png' rel='icon' type='image/png'/>
   </head>
   <body>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/serviceworker.js")
-          .then(reg => console.log("SW terdaftar:", reg.scope))
-          .catch(err => console.error("SW gagal:", err));
-      });
-    }
-  </script>
+    <script src="/app.js"></script>
   </body>
 </html>
