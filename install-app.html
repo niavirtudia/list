@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "9c199bcb-cf48-4621-a2b4-9db44e3a8c0d",
-      });
-    });
-  </script>
   <!-- Google Tag Manager -->
   <script>
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -20,7 +11,7 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://list.modenyania.com/page/install-app.html" rel="canonical"/>
+  <link href="https://list.modenyania.com/install-app.html" rel="canonical"/>
   <title>Install BFL</title>
   <meta content="Instal BFL! Pakai layaknya aplikasi, aman, hemat data & lebih ringan, akses instan tanpa buka browser, dapatkan notifikasi terbaru, dan tanpa instal file tambahan." name="description"/>
   <link rel="manifest" href="/manifest.json">
@@ -30,9 +21,8 @@
   <link href="/icon/ico.svg" rel="icon" type="image/svg+xml"/>
   <link href="/icon/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
   <link href="/icon/ico.png" rel="icon" type="image/png"/>
-  <link href="https://list.modenyania.com/page/install-app.html" rel="openid.delegate"/>
-  <link href="https://list.modenyania.com/page/install-app.html" hreflang="id" rel="alternate"/>
-  <link href="https://list.modenyania.com/page/install-app.html" hreflang="x-default" rel="alternate"/>
+  <link href="https://list.modenyania.com/install-app.html" hreflang="id" rel="alternate"/>
+  <link href="https://list.modenyania.com/install-app.html" hreflang="x-default" rel="alternate"/>
   <meta name="google-site-verification" content="h-fxdVpC6nibb7jbdH8eH0S132BP_LYwVEGaimeLEx0"/>
   <meta name="facebook-domain-verification" content="8hw4ga6q5c1zxpk2pxvv568cmjm1vs"/>
   <meta name="msvalidate.01" content="58D08496CCEF5DCDF119DCA58FB71A80" />
@@ -60,7 +50,7 @@
   <meta property="og:description" content="Instal BFL! Pakai layaknya aplikasi, aman, hemat data & lebih ringan, akses instan tanpa buka browser, dapatkan notifikasi terbaru, dan tanpa instal file tambahan."/>
   <meta property="og:image" content="https://www.modenyania.com/icon/thumb_modenyania.png"/>
   <meta property="fb:app_id" content="5329195940499911"/>
-  <meta property="og:url" content="https://list.modenyania.com/page/install-app.html"/>
+  <meta property="og:url" content="https://list.modenyania.com/install-app.html"/>
   <meta property="og:type" content="product"/>
   <meta property="og:site_name" content="Modenyania" />
   <meta property="og:locale" content="id" />
@@ -69,6 +59,19 @@
   <meta name="twitter:title" content="Instal BFL! Pakai layaknya aplikasi, aman, hemat data & lebih ringan, akses instan tanpa buka browser, dapatkan notifikasi terbaru, dan tanpa instal file tambahan."/>
   <meta name="twitter:image" content="https://www.modenyania.com/icon/thumb_modenyania.png"/>
   <meta name="twitter:site" content="@modenyania" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Beauty & Fashion List",
+    "url": "https://list.modenyania.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://list.modenyania.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -154,7 +157,13 @@
   </style>
 </head>
 <body>
-  <amp-install-serviceworker src="/OneSignalSDKWorker.js" data-iframe-src="/offline.html" layout="nodisplay"></amp-install-serviceworker>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("Service Worker registered"))
+      .catch(err => console.log("SW registration failed:", err));
+  }
+</script>
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNJR3QW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="install-app">
