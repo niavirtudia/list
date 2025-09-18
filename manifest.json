@@ -1,0 +1,48 @@
+{
+  "name": "Beauty & Fashion List",
+  "short_name": "BFL",
+  "display": "standalone",
+  "prefer_related_applications": false,
+  "id": "com.listmodenyania.app",
+  "start_url": "/",
+  "scope": "/",
+  "background_color": "#d0011b",
+  "theme_color": "#d0011b",
+  "description": "Solusi dalam memilih produk kecantikan dan perawatan diri, serta fashion terbaik. Bikin waktumu lebih hemat!",
+  "orientation": "portrait",
+  "dir": "ltr",
+  "lang": "id",
+  "categories": ["productivity", "beauty", "fashion"],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.listmodenyania.app",
+      "id": "com.listmodenyania.app"
+    }
+  ],
+  "icons": [
+    { "src": "/icon/apple-touch-icon-114x114.png", "sizes": "114x114", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-120x120.png", "sizes": "120x120", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-144x144.png", "sizes": "144x144", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-152x152.png", "sizes": "152x152", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-180x180.png", "sizes": "180x180", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-57x57.png", "sizes": "57x57", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-60x60.png", "sizes": "60x60", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-72x72.png", "sizes": "72x72", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/apple-touch-icon-76x76.png", "sizes": "76x76", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/app-icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon/ms-icon-310x310.png", "sizes": "310x310", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "/icon/listdesktop.png", "sizes": "1440x900", "type": "image/png", "form_factor": "wide" },
+    { "src": "/icon/listmobile.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow" }
+  ],
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "type": "classic"
+  }
+}
