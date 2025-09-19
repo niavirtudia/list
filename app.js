@@ -14,8 +14,11 @@ if ("serviceWorker" in navigator) {
       // Update found handler
       reg.addEventListener("updatefound", () => {
         const newWorker = reg.installing;
+        if (!newWorker) return;
+
         newWorker.addEventListener("statechange", () => {
           if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            // Buat tombol update
             const updateButton = document.createElement("button");
             updateButton.textContent = "Update tersedia! Klik untuk reload";
             updateButton.style.position = "fixed";
@@ -27,10 +30,13 @@ if ("serviceWorker" in navigator) {
             updateButton.style.border = "none";
             updateButton.style.borderRadius = "5px";
             updateButton.style.cursor = "pointer";
+
+            // Klik = trigger skipWaiting di SW
             updateButton.onclick = () => {
-              newWorker.postMessage({ action: "skipWaiting" });
+              newWorker.postMessage({ type: "SKIP_WAITING" });
               document.body.removeChild(updateButton);
             };
+
             document.body.appendChild(updateButton);
           }
         });
