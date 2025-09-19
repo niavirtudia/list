@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v1.0";
+const CACHE_NAME = "pwa-cache-v2.0";
 const OFFLINE_URL = "/offline.html";
 
 const PRECACHE_ASSETS = [
@@ -97,3 +97,13 @@ async function syncQueuedRequests() {
     }
   }
 }
+
+// MESSAGE handler sederhana
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+    console.log("[SW] Skip waiting triggered via message");
+  } else {
+    console.log("[SW] Message received:", event.data);
+  }
+});
