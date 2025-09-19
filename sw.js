@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v2.0";
+const CACHE_NAME = "pwa-cache-v3.0";
 const OFFLINE_URL = "/offline.html";
 
 const PRECACHE_ASSETS = [
@@ -16,7 +16,6 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
   );
-  self.skipWaiting();
 });
 
 // ACTIVATE
