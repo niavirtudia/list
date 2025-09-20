@@ -26,6 +26,7 @@ if ("serviceWorker" in navigator) {
             updateButton.style.right = "10px";
             updateButton.style.padding = "10px 20px";
             updateButton.style.backgroundColor = "#d0011b";
+            updateButton.style.fontSize = "16px";
             updateButton.style.color = "#fff";
             updateButton.style.border = "none";
             updateButton.style.borderRadius = "5px";
