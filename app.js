@@ -20,7 +20,7 @@ if ("serviceWorker" in navigator) {
           if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
             // Buat tombol update
             const updateButton = document.createElement("button");
-            updateButton.textContent = "Update tersedia! Klik untuk reload";
+            updateButton.textContent = "Reload";
             updateButton.style.position = "fixed";
             updateButton.style.bottom = "10px";
             updateButton.style.right = "10px";
