@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v1.2";
+const CACHE_NAME = "pwa-cache-v4";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE_ASSETS = [
   "/",
