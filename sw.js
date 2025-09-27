@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v3.0";
+const CACHE_NAME = "pwa-cache-v3.1";
 const OFFLINE_URL = "/offline.html";
 
 const PRECACHE_ASSETS = [
@@ -36,13 +36,28 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
+  // Fungsi untuk memeriksa skema yang didukung
+  const isCacheableRequest = (url) => {
+    return url.startsWith("http://") || url.startsWith("https://");
+  };
+
+  // Log URL untuk debugging (opsional: hapus jika tidak diperlukan)
+  console.log(`[SW] Fetching: ${request.url}`);
+
   // Strategy: Network first untuk HTML
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
         .then((resp) => {
-          const clone = resp.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          if (isCacheableRequest(request.url) && resp.ok) {
+            const clone = resp.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              console.log(`[SW] Caching: ${request.url}`);
+              cache.put(request, clone).catch((err) => {
+                console.error(`[SW] Cache put failed for ${request.url}:`, err);
+              });
+            });
+          }
           return resp;
         })
         .catch(() => caches.match(request).then((r) => r || caches.match(OFFLINE_URL)))
@@ -50,14 +65,21 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Strategy: Cache first untuk asset statis
+  // Strategy: Cache first untuk aset statis
   if (request.url.match(/\.(js|css|png|jpg|jpeg|gif|svg|webp|woff2?)$/)) {
     event.respondWith(
       caches.match(request).then((resp) =>
         resp ||
         fetch(request).then((netResp) => {
-          const clone = netResp.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          if (isCacheableRequest(request.url) && netResp.ok) {
+            const clone = netResp.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              console.log(`[SW] Caching: ${request.url}`);
+              cache.put(request, clone).catch((err) => {
+                console.error(`[SW] Cache put failed for ${request.url}:`, err);
+              });
+            });
+          }
           return netResp;
         })
       )
