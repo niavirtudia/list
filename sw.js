@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v4";
+const CACHE_NAME = "pwa-cache-v4.1";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE_ASSETS = [
   "/",
@@ -13,7 +13,12 @@ const PRECACHE_ASSETS = [
 // INSTALL
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.addAll(PRECACHE_ASSETS).catch((err) => {
+        console.error("[SW] Failed to cache assets:", err);
+        throw err;
+      })
+    )
   );
 });
 
@@ -29,22 +34,38 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// MESSAGE handler for SKIP_WAITING
+// MESSAGE handler
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
 
+// FETCH with Timeout
+async function fetchWithTimeout(request, timeout = 5000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(request, { signal: controller.signal });
+    clearTimeout(id);
+    return response;
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
+  }
+}
+
 // FETCH handler
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   const isPrecached = PRECACHE_ASSETS.some((asset) => url.pathname === asset);
+  const isGoogleFonts = url.href.startsWith("https://fonts.googleapis.com") || url.href.startsWith("https://fonts.gstatic.com");
 
   if (event.request.method === "POST") {
     event.respondWith(
-      fetch(event.request)
+      fetchWithTimeout(event.request)
         .catch(async (err) => {
+          console.error("[SW] POST request failed:", err);
           const requestClone = event.request.clone();
           const body = await requestClone.json();
           const cache = await caches.open("bg-sync-queue");
@@ -52,9 +73,19 @@ self.addEventListener("fetch", (event) => {
           return new Response(JSON.stringify({ status: "queued" }));
         })
     );
+  } else if (isGoogleFonts) {
+    // Skip caching Google Fonts, fetch directly from network
+    event.respondWith(
+      fetchWithTimeout(event.request)
+        .catch((err) => {
+          console.error("[SW] Google Fonts fetch failed:", url.href, err);
+          // Return null or a minimal response to avoid triggering offline.html
+          return new Response("", { status: 404, statusText: "Font not found" });
+        })
+    );
   } else {
     event.respondWith(
-      fetch(event.request)
+      fetchWithTimeout(event.request)
         .then((response) => {
           if (url.protocol === "https:" && event.request.method === "GET" && isPrecached) {
             const respClone = response.clone();
@@ -64,9 +95,21 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(() =>
-          caches.match(event.request).then((resp) => resp || caches.match(OFFLINE_URL))
-        )
+        .catch(async (err) => {
+          console.error("[SW] Fetch failed for", url.href, ":", err);
+          if (!navigator.onLine) {
+            const cachedResponse = await caches.match(event.request);
+            return cachedResponse || caches.match(OFFLINE_URL);
+          }
+          try {
+            const retryResponse = await fetchWithTimeout(event.request);
+            return retryResponse;
+          } catch (retryErr) {
+            console.error("[SW] Retry failed for", url.href, ":", retryErr);
+            const cachedResponse = await caches.match(event.request);
+            return cachedResponse || caches.match(OFFLINE_URL);
+          }
+        })
     );
   }
 });
@@ -77,7 +120,7 @@ self.addEventListener("push", (event) => {
   try {
     data = event.data ? event.data.json() : {};
   } catch (e) {
-    console.warn("Push data bukan JSON valid", e);
+    console.warn("[SW] Push data bukan JSON valid", e);
   }
 
   const title = data.title || "Notifikasi Baru";
