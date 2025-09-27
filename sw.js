@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v3.1";
+const CACHE_NAME = "pwa-cache-v3.2";
 const OFFLINE_URL = "/offline.html";
 
 const PRECACHE_ASSETS = [
@@ -40,9 +40,6 @@ self.addEventListener("fetch", (event) => {
   const isCacheableRequest = (url) => {
     return url.startsWith("http://") || url.startsWith("https://");
   };
-
-  // Log URL untuk debugging (opsional: hapus jika tidak diperlukan)
-  console.log(`[SW] Fetching: ${request.url}`);
 
   // Strategy: Network first untuk HTML
   if (request.mode === "navigate") {
