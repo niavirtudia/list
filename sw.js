@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v3.5";
+const CACHE_NAME = "pwa-cache-v3.6";
 const OFFLINE_URL = "/offline.html";
 
 // File yang akan di-cache saat install
@@ -38,6 +38,16 @@ self.addEventListener("activate", (event) => {
 
 // Fetch handler → network first, fallback ke cache/offline
 self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+
+  // ❌ Jangan cache Google Fonts (CSS + file font)
+  if (
+    url.origin === "https://fonts.gstatic.com" ||
+    url.origin === "https://fonts.googleapis.com"
+  ) {
+    return; // biarkan browser langsung handle
+  }
+
   if (event.request.method !== "GET") return;
 
   event.respondWith(
@@ -58,3 +68,4 @@ self.addEventListener("fetch", (event) => {
       })
   );
 });
+
