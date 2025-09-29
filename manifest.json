@@ -6,7 +6,7 @@
   "id": "com.listmodenyania.app",
   "start_url": "/",
   "scope": "/",
-  "background_color": "#ffffff",
+  "background_color": "#d0011b",
   "theme_color": "#d0011b",
   "description": "Solusi dalam memilih produk kecantikan dan perawatan diri, serta fashion terbaik. Bikin waktumu lebih hemat!",
   "orientation": "portrait",
@@ -20,38 +20,68 @@
       "id": "com.listmodenyania.app"
     }
   ],
-"icons": [
-  {
-    "src": "/icon/app-icon-192.png",
-    "sizes": "192x192",
-    "type": "image/png",
-    "purpose": "any maskable"
-  },
-  {
-    "src": "/icon/app-icon-256.png",
-    "sizes": "256x256",
-    "type": "image/png",
-    "purpose": "any maskable"
-  },
-  {
-    "src": "/icon/app-icon-384.png",
-    "sizes": "384x384",
-    "type": "image/png",
-    "purpose": "any maskable"
-  },
-  {
-    "src": "/icon/app-icon-512.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any maskable"
-  },
-  {
-    "src": "/icon/app-icon-1024.png",
-    "sizes": "1024x1024",
-    "type": "image/png",
-    "purpose": "any maskable"
-  }
-],
+  "icons": [
+	  {
+		"src": "/icon/app-icon-192-any.png",
+		"sizes": "192x192",
+		"type": "image/png",
+		"purpose": "any"
+	  },
+	  {
+		"src": "/icon/app-icon-256-any.png",
+		"sizes": "256x256",
+		"type": "image/png",
+		"purpose": "any"
+	  },
+	  {
+		"src": "/icon/app-icon-384-any.png",
+		"sizes": "384x384",
+		"type": "image/png",
+		"purpose": "any"
+	  },
+	  {
+		"src": "/icon/app-icon-512-any.png",
+		"sizes": "512x512",
+		"type": "image/png",
+		"purpose": "any"
+	  },
+	  {
+		"src": "/icon/app-icon-1024-any.png",
+		"sizes": "1024x1024",
+		"type": "image/png",
+		"purpose": "any"
+	  },
+	  {
+		"src": "/icon/app-icon-192-maskable.png",
+		"sizes": "192x192",
+		"type": "image/png",
+		"purpose": "maskable"
+	  },
+	  {
+		"src": "/icon/app-icon-256-maskable.png",
+		"sizes": "256x256",
+		"type": "image/png",
+		"purpose": "maskable"
+	  },
+	  {
+		"src": "/icon/app-icon-384-maskable.png",
+		"sizes": "384x384",
+		"type": "image/png",
+		"purpose": "maskable"
+	  },
+	  {
+		"src": "/icon/app-icon-512-maskable.png",
+		"sizes": "512x512",
+		"type": "image/png",
+		"purpose": "maskable"
+	  },
+	  {
+		"src": "/icon/app-icon-1024-maskable.png",
+		"sizes": "1024x1024",
+		"type": "image/png",
+		"purpose": "maskable"
+	  }
+  ],
   "screenshots": [
     { "src": "/icon/listdesktop.png", "sizes": "1440x900", "type": "image/png", "form_factor": "wide" },
     { "src": "/icon/listmobile.png", "sizes": "720x1280", "type": "image/png", "form_factor": "narrow" }
