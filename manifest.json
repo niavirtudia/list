@@ -2,6 +2,13 @@
   "name": "Beauty & Fashion List",
   "short_name": "BFL",
   "display": "standalone",
+  "display_override": [
+	  "window-controls-overlay",
+	  "standalone",
+	  "fullscreen",
+	  "minimal-ui",
+	  "browser"
+	],
   "prefer_related_applications": false,
   "id": "com.listmodenyania.app",
   "start_url": "/",
