@@ -13,7 +13,7 @@
   "id": "com.listmodenyania.app",
   "start_url": "/",
   "scope": "/",
-  "background_color": "#d0011b",
+  "background_color": "#ffffff",
   "theme_color": "#d0011b",
   "description": "Solusi dalam memilih produk kecantikan dan perawatan diri, serta fashion terbaik. Bikin waktumu lebih hemat!",
   "orientation": "portrait",
@@ -88,6 +88,78 @@
 		"type": "image/png",
 		"purpose": "maskable"
 	  }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kecantikan & Perawatan Diri",
+      "short_name": "Beauty",
+      "url": "/page/beauty.html",
+      "description": "Solusi memilih produk kecantikan & perawatan diri terbaik.",
+      "icons": [
+        {
+          "src": "/icon/app-icon-192-any.png",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "Pakaian Olahraga",
+      "short_name": "Sportswear",
+      "url": "/page/sportswear.html",
+      "description": "Solusi memilih pakaian olahraga terbaik.",
+      "icons": [
+        {
+          "src": "/icon/app-icon-192-any.png",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+	{
+      "name": "Fashion Muslim",
+      "short_name": "Fashion Muslim",
+      "url": "/page/fashion-muslim.html",
+      "description": "Solusi memilih fashion muslim terbaik.",
+      "icons": [
+        {
+          "src": "/icon/app-icon-192-any.png",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+	{
+      "name": "Sneakers",
+      "short_name": "Sneakers",
+      "url": "/page/sneakers.html",
+      "description": "Solusi memilih fashion muslim terbaik.",
+      "icons": [
+        {
+          "src": "/icon/app-icon-192-any.png",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    }
+  ],
+  "protocol_handlers": [
+  {
+    "protocol": "web+beauty",
+    "url": "/page/beauty.html?query=%s"
+  },
+  {
+    "protocol": "web+sportswear",
+    "url": "/page/sportswear.html?query=%s"
+  },
+  {
+    "protocol": "web+fashion-muslim",
+    "url": "/page/fashion-muslim.html?query=%s"
+  },
+  {
+    "protocol": "web+sneakers",
+    "url": "/page/sneakers.html?query=%s"
+  }
   ],
   "screenshots": [
     { "src": "/icon/listdesktop.png", "sizes": "1440x900", "type": "image/png", "form_factor": "wide" },
