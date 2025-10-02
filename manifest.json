@@ -97,7 +97,7 @@
       "description": "Solusi memilih produk kecantikan & perawatan diri terbaik.",
       "icons": [
         {
-          "src": "/icon/app-icon-192-any.png",
+          "src": "/icon/shortcuts.png",
           "type": "image/png",
           "purpose": "any"
         }
@@ -110,7 +110,7 @@
       "description": "Solusi memilih pakaian olahraga terbaik.",
       "icons": [
         {
-          "src": "/icon/app-icon-192-any.png",
+          "src": "/icon/shortcuts.png",
           "type": "image/png",
           "purpose": "any"
         }
@@ -123,7 +123,7 @@
       "description": "Solusi memilih fashion muslim terbaik.",
       "icons": [
         {
-          "src": "/icon/app-icon-192-any.png",
+          "src": "/icon/shortcuts.png",
           "type": "image/png",
           "purpose": "any"
         }
@@ -136,7 +136,7 @@
       "description": "Solusi memilih fashion muslim terbaik.",
       "icons": [
         {
-          "src": "/icon/app-icon-192-any.png",
+          "src": "/icon/shortcuts.png",
           "type": "image/png",
           "purpose": "any"
         }
