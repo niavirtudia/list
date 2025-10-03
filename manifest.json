@@ -93,7 +93,7 @@
     {
       "name": "Kecantikan & Perawatan Diri",
       "short_name": "Beauty",
-      "url": "/page/beauty.html",
+      "url": "/beauty",
       "description": "Solusi memilih produk kecantikan & perawatan diri terbaik.",
       "icons": [
         {
@@ -106,7 +106,7 @@
     {
       "name": "Pakaian Olahraga",
       "short_name": "Sportswear",
-      "url": "/page/sportswear.html",
+      "url": "/sportswear",
       "description": "Solusi memilih pakaian olahraga terbaik.",
       "icons": [
         {
@@ -119,7 +119,7 @@
 	{
       "name": "Fashion Muslim",
       "short_name": "Fashion Muslim",
-      "url": "/page/fashion-muslim.html",
+      "url": "/fashion-muslim",
       "description": "Solusi memilih fashion muslim terbaik.",
       "icons": [
         {
@@ -132,7 +132,7 @@
 	{
       "name": "Sneakers",
       "short_name": "Sneakers",
-      "url": "/page/sneakers.html",
+      "url": "/sneakers",
       "description": "Solusi memilih fashion muslim terbaik.",
       "icons": [
         {
@@ -146,19 +146,19 @@
   "protocol_handlers": [
   {
     "protocol": "web+beauty",
-    "url": "/page/beauty.html?query=%s"
+    "url": "/beauty?query=%s"
   },
   {
     "protocol": "web+sportswear",
-    "url": "/page/sportswear.html?query=%s"
+    "url": "/sportswear?query=%s"
   },
   {
     "protocol": "web+fashionmuslim",
-    "url": "/page/fashion-muslim.html?query=%s"
+    "url": "/fashion-muslim?query=%s"
   },
   {
     "protocol": "web+sneakers",
-    "url": "/page/sneakers.html?query=%s"
+    "url": "/sneakers?query=%s"
   }
   ],
   "screenshots": [
