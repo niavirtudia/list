@@ -1,4 +1,4 @@
-const CACHE_NAME = "pwa-cache-v4.1";
+const CACHE_NAME = "pwa-cache-v5.0";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE_ASSETS = [
   "/",
@@ -26,23 +26,25 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.map((key) => {
-        if (key !== CACHE_NAME) return caches.delete(key);
-      }))
+      Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      )
     )
   );
   self.clients.claim();
 });
 
-// MESSAGE handler
+// MESSAGE
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
   }
 });
 
-// FETCH with Timeout
-async function fetchWithTimeout(request, timeout = 5000) {
+// FETCH WITH TIMEOUT
+async function fetchWithTimeout(request, timeout = 10000) {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   try {
@@ -55,66 +57,82 @@ async function fetchWithTimeout(request, timeout = 5000) {
   }
 }
 
-// FETCH handler
+// FETCH HANDLER
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
   const isPrecached = PRECACHE_ASSETS.some((asset) => url.pathname === asset);
-  const isGoogleFonts = url.href.startsWith("https://fonts.googleapis.com") || url.href.startsWith("https://fonts.gstatic.com");
+  const isGoogleFonts =
+    url.href.startsWith("https://fonts.googleapis.com") ||
+    url.href.startsWith("https://fonts.gstatic.com");
 
-  if (event.request.method === "POST") {
-    event.respondWith(
-      fetchWithTimeout(event.request)
-        .catch(async (err) => {
-          console.error("[SW] POST request failed:", err);
-          const requestClone = event.request.clone();
-          const body = await requestClone.json();
-          const cache = await caches.open("bg-sync-queue");
-          await cache.put(event.request, new Response(JSON.stringify(body)));
-          return new Response(JSON.stringify({ status: "queued" }));
-        })
-    );
-  } else if (isGoogleFonts) {
-    // Skip caching Google Fonts, fetch directly from network
-    event.respondWith(
-      fetchWithTimeout(event.request)
-        .catch((err) => {
-          console.error("[SW] Google Fonts fetch failed:", url.href, err);
-          // Return null or a minimal response to avoid triggering offline.html
-          return new Response("", { status: 404, statusText: "Font not found" });
-        })
-    );
-  } else {
+  // 🔹 1. Network-first untuk halaman HTML
+  if (event.request.headers.get("accept")?.includes("text/html")) {
     event.respondWith(
       fetchWithTimeout(event.request)
         .then((response) => {
+          const respClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, respClone));
+          return response;
+        })
+        .catch(async () => {
+          const cachedResponse = await caches.match(event.request);
+          return cachedResponse || caches.match(OFFLINE_URL);
+        })
+    );
+    return;
+  }
+
+  // 🔹 2. Skip caching untuk Google Fonts (biar tidak error)
+  if (isGoogleFonts) {
+    event.respondWith(
+      fetchWithTimeout(event.request).catch((err) => {
+        console.warn("[SW] Google Fonts fetch failed:", url.href, err);
+        return new Response("", { status: 404, statusText: "Font not found" });
+      })
+    );
+    return;
+  }
+
+  // 🔹 3. POST request dengan background sync
+  if (event.request.method === "POST") {
+    event.respondWith(
+      fetchWithTimeout(event.request).catch(async (err) => {
+        console.error("[SW] POST request failed:", err);
+        const requestClone = event.request.clone();
+        const body = await requestClone.json();
+        const cache = await caches.open("bg-sync-queue");
+        await cache.put(event.request, new Response(JSON.stringify(body)));
+        return new Response(JSON.stringify({ status: "queued" }), {
+          headers: { "Content-Type": "application/json" },
+        });
+      })
+    );
+    return;
+  }
+
+  // 🔹 4. Default: cache-first untuk aset (CSS, JS, images)
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) return cachedResponse;
+
+      return fetchWithTimeout(event.request)
+        .then((response) => {
           if (url.protocol === "https:" && event.request.method === "GET" && isPrecached) {
             const respClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, respClone);
-            });
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, respClone));
           }
           return response;
         })
         .catch(async (err) => {
-          console.error("[SW] Fetch failed for", url.href, ":", err);
-          if (!navigator.onLine) {
-            const cachedResponse = await caches.match(event.request);
-            return cachedResponse || caches.match(OFFLINE_URL);
-          }
-          try {
-            const retryResponse = await fetchWithTimeout(event.request);
-            return retryResponse;
-          } catch (retryErr) {
-            console.error("[SW] Retry failed for", url.href, ":", retryErr);
-            const cachedResponse = await caches.match(event.request);
-            return cachedResponse || caches.match(OFFLINE_URL);
-          }
-        })
-    );
-  }
+          console.error("[SW] Fetch failed:", url.href, err);
+          const offlineFallback = await caches.match(OFFLINE_URL);
+          return offlineFallback;
+        });
+    })
+  );
 });
 
-// PUSH handler
+// PUSH NOTIFICATIONS
 self.addEventListener("push", (event) => {
   let data = {};
   try {
@@ -135,7 +153,7 @@ self.addEventListener("push", (event) => {
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
-// NOTIFICATION CLICK handler
+// NOTIFICATION CLICK
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   const targetUrl = event.notification.data?.url || "/";
@@ -153,7 +171,7 @@ self.addEventListener("notificationclick", (event) => {
   );
 });
 
-// SYNC handler
+// BACKGROUND SYNC
 self.addEventListener("sync", (event) => {
   if (event.tag === "sync-post-data") {
     event.waitUntil(syncQueuedRequests());
