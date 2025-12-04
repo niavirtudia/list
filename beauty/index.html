@@ -1618,10 +1618,15 @@ function updateSidebarUI() {
 			const pn = (p.name || '').toLowerCase();
 			const pp = (p.price || '').toLowerCase();
 			
-			// PROPERTI HIERARKI KECANTIKAN (Tipe A)
+			// PROPERTI HIERARKI KECANTIKAN (Tipe A) String Tunggal
+			// const pArea = (p.area || '').toLowerCase(); 		
+			// const pType = (p.type || '').toLowerCase(); 		
+			// const pSubtype = (p.subtype || '').toLowerCase(); 	
+			
+			// BARIS BARU (Mengambil elemen pertama dari Array jika p.type adalah Array):
 			const pArea = (p.area || '').toLowerCase(); 		
-			const pType = (p.type || '').toLowerCase(); 		
-			const pSubtype = (p.subtype || '').toLowerCase(); 	
+			const pType = Array.isArray(p.type) ? (p.type[0] || '').toLowerCase() : (p.type || '').toLowerCase(); 	
+			const pSubtype = Array.isArray(p.subtype) ? (p.subtype[0] || '').toLowerCase() : (p.subtype || '').toLowerCase();
 
 			// PROPERTI LAMA HANYA UNTUK KEPERLUAN FALLBACK PENCARIAN (JIKA MASIH ADA)
 			// JANGAN GUNAKAN UNTUK FILTER HIERARKI AKTIF.
