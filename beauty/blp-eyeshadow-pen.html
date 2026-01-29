@@ -143,18 +143,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <article class="article">
 <section class="article-section hero-article">
 <div class="hero-image">
-<amp-img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhClzlN1pcItsVb4eblefkX8DUXiz98-jbtyzIDaAm3cYY5UhOzr8EmcLF1qe-P6P5asouLHJh-QRWpeJQICtZTCcBzkt9WM4SJhi5UwXY4LvwDlCAbJ85q_x8eKhghqWGfhY4yETOO2Fku8Rs88YJJGR86Mdxjji-ky7-XqPZLt2twhhAy8XUmoy28GLPk/s1600/eyeshadow.webp" width="640" height="640" data-hero="" layout="responsive" alt="BLP - Eyeshadow Pen - Eyeshadow"></amp-img>
+<amp-img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhClzlN1pcItsVb4eblefkX8DUXiz98-jbtyzIDaAm3cYY5UhOzr8EmcLF1qe-P6P5asouLHJh-QRWpeJQICtZTCcBzkt9WM4SJhi5UwXY4LvwDlCAbJ85q_x8eKhghqWGfhY4yETOO2Fku8Rs88YJJGR86Mdxjji-ky7-XqPZLt2twhhAy8XUmoy28GLPk/s1600/eyeshadow.webp" width="1080" height="1080" data-hero="" layout="responsive" alt="BLP - Eyeshadow Pen"></amp-img>
 </div>
 <div class="affiliate-link entry-side">
 <h2 class="product-price">Rp134.472</h2>
 <p class="product-estimate">Harga yang tercantum di atas adalah harga yang tersedia saat artikel ini dibuat. Cek harga di platform di bawah untuk memastikan harga ter-<i>update</i>!</p>
-<div class="shop-item flex a-flex">
-<a href="https://vt.tokopedia.com/t/ZS91DKCjwgy7p-ELhSR/" title="Beli di TikTok Shop" target="_blank" id="link-tiktok" class="affiliate-btn slink tiktok-btn" data-platform="TikTok" data-product="BLP - Eyeshadow Pen - Eyeshadow">TikTok Shop</a>
-<a href="https://s.shopee.co.id/qdcDS0cU5" title="Beli di Shopee" target="_blank" id="link-shopee" class="affiliate-btn slink shopee-btn" data-platform="Shopee" data-product="BLP - Eyeshadow Pen - Eyeshadow">Shopee</a>
-<a href="https://tk.tokopedia.com/ZSa9d3x9M/" title="Beli di Tokopedia" target="_blank" id="link-tokopedia" class="affiliate-btn slink tokopedia-btn" data-platform="Tokopedia" data-product="BLP - Eyeshadow Pen - Eyeshadow">Tokopedia</a>
-<a href="https://atid.me/go/ZHf1xz7B" title="Beli di Lazada" target="_blank" id="link-lazada" class="affiliate-btn slink lazada-btn" data-platform="Lazada" data-product="BLP - Eyeshadow Pen - Eyeshadow">Lazada</a>
-<a href="https://atid.me/go/tiV9HMKR" title="Beli di Blibli" target="_blank" id="link-blibli" class="affiliate-btn slink blibli-btn" data-platform="Blibli" data-product="BLP - Eyeshadow Pen - Eyeshadow">Blibli</a>
-<a href="https://invl.me/cln77qb" title="Beli di Zalora" target="_blank" id="link-zalora" class="affiliate-btn slink zalora-btn" data-platform="Zalora" data-product="BLP - Eyeshadow Pen - Eyeshadow">Zalora</a>
+<div class="shop-item flex a-flex" data-id="M04" data-name="BLP - Eyeshadow Pen">
+<a id="link-tiktok" href="https://vt.tokopedia.com/t/ZS91DKCjwgy7p-ELhSR/" title="Beli di TikTok Shop" class="affiliate-btn slink tiktok-btn" data-type="TikTok">TikTok Shop</a>
+<a id="link-shopee" href="https://s.shopee.co.id/qdcDS0cU5" title="Beli di Shopee" class="affiliate-btn slink shopee-btn" data-type="Shopee">Shopee</a>
+<a id="link-tokopedia" href="https://tk.tokopedia.com/ZSa9d3x9M/" title="Beli di Tokopedia" class="affiliate-btn slink tokopedia-btn" data-type="Tokopedia">Tokopedia</a>
+<a id="link-lazada" href="https://atid.me/go/ZHf1xz7B" title="Beli di Lazada" class="affiliate-btn slink lazada-btn" data-type="Lazada">Lazada</a>
+<a id="link-blibli" href="https://atid.me/go/tiV9HMKR" title="Beli di Blibli" class="affiliate-btn slink blibli-btn" data-type="Blibli">Blibli</a>
+<a id="link-zalora" href="https://invl.me/cln77qb" title="Beli di Zalora" class="affiliate-btn slink zalora-btn" data-type="Zalora">Zalora</a>
 </div>
 </div>
 </section>
@@ -209,18 +209,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <amp-install-serviceworker src="/sw.js" data-iframe-src="/offline/" layout="nodisplay"></amp-install-serviceworker>
 <script>
 document.querySelectorAll('.affiliate-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const platform = this.getAttribute('data-platform');
-        const productName = this.getAttribute('data-product');
+    button.addEventListener('click', function(e) {
+        // Ambil data dari parent (box produk)
+        const parent = this.closest('.shop-item');
+        const pID = parent.getAttribute('data-id');
+        const pName = parent.getAttribute('data-name');
+        
+        // Ambil data dari tombol itu sendiri
+        const pCategory = this.getAttribute('data-type');
 
+        // Kirim ke Meta Pixel
         fbq('trackCustom', 'ClickToAffiliate', {
-            content_name: productName,
-            content_category: platform,
-            source: 'GitHub Pages'
+            content_ids: [pID],
+            content_type: 'product',
+            content_name: pName,
+            content_category: pCategory
         });
         
-        // Memberikan sedikit jeda agar Pixel sempat terkirim sebelum pindah halaman
-        console.log('Event sent for: ' + productName + ' to ' + platform);
+        console.log(`Terkirim: ${pName} via ${pCategory}`);
     });
 });
 </script>
