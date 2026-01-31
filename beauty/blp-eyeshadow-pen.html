@@ -208,26 +208,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav class="footer-nav"><ul class="list-reset flex"><li class="lst"><a href="https://list.modenyania.com/beauty/" title="Beauty">Beauty</a></li><li class="lst"><a href="https://list.modenyania.com/" title="Semua List">Semua List</a></li><li class="lst"><a href="https://www.modenyania.com/" title="Beranda">Beranda</a></li></ul></nav><small> © <amp-date-display datetime='now' height='18' layout='fixed' width='45'><template type='amp-mustache'><span>{{year}}</span></template></amp-date-display> Modenyania</small></footer>
 <amp-install-serviceworker src="/sw.js" data-iframe-src="/offline/" layout="nodisplay"></amp-install-serviceworker>
 <script>
-document.querySelectorAll('.affiliate-btn').forEach(button => {
-    button.addEventListener('click', function(e) {
+// Gunakan document agar tombol yang baru di-render tetap terdeteksi
+document.addEventListener('click', function(e) {
+    // Cek apakah yang diklik adalah .affiliate-btn atau elemen di dalamnya (seperti SVG)
+    const button = e.target.closest('.affiliate-btn');
+    
+    if (button) {
         // Ambil data dari parent (box produk)
-        const parent = this.closest('.shop-item');
-        const pID = parent.getAttribute('data-id');
-        const pName = parent.getAttribute('data-name');
+        const parent = button.closest('.shop-item');
         
-        // Ambil data dari tombol itu sendiri
-        const pCategory = this.getAttribute('data-type');
+        if (parent) {
+            const pID = parent.getAttribute('data-id');
+            const pName = parent.getAttribute('data-name');
+            const pCategory = button.getAttribute('data-type');
 
-        // Kirim ke Meta Pixel
-        fbq('trackCustom', 'ClickToAffiliate', {
-            content_ids: [pID],
-            content_type: 'product',
-            content_name: pName,
-            content_category: pCategory
-        });
-        
-        console.log(`Terkirim: ${pName} via ${pCategory}`);
-    });
+            // Kirim ke Meta Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('trackCustom', 'ClickToAffiliate', {
+                    content_ids: [pID],
+                    content_type: 'product',
+                    content_name: pName,
+                    content_category: pCategory
+                });
+            }
+            
+            console.log(`Terkirim: ${pName} via ${pCategory}`);
+        }
+    }
 });
 </script>
 </body>
