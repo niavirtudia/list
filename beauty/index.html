@@ -2177,7 +2177,7 @@ function refreshSEO() {
     // Update Twitter/X Cards
     updateMetaTag('name', 'twitter:title', document.title);
     updateMetaTag('name', 'twitter:description', seoData.desc);
-	updateMetaTag('property', 'twitter:url', window.location.href);
+	updateMetaTag('name', 'twitter:url', window.location.href);
 	
     // Update Intro Text
     const introEl = document.getElementById('category-intro');
