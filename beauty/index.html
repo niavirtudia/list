@@ -75,6 +75,7 @@
   <meta property="og:locale" content="id" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:url" content="https://list.modenyania.com/beauty/">
   <meta name="twitter:title" content="Skincare, Body Care hingga Makeup dan Parfum Terbaik"/>
   <meta name="twitter:description" content="Koleksi lengkap skincare, body care, makeup, dan hair care terbaik. Semua produk terkurasi dengan link langsung ke toko online terpercaya."/>
   <meta name="twitter:image" content="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCbHB87GQD-eQMGOBXe9q74wsqHvnQGvygFm_msLAVXk3W-vn51-_HmuVw91-tje7rZh4og11J7UuER3K_jOCqpnmp7Z4SLoglptpMBY88znuq1y1mb3oTIFNoYeJ13uLh8H_IYAEnSbsG_oyuvdrDrM63RgjRnX3J4tgaDCLyYAJNPrUmXYkFXe41QtYE/s1600/beauty-katalog.webp"/>
@@ -1828,7 +1829,7 @@ function renderProducts(reset = false) {
                             </div>
                         </details>
                     </div>
-                    <div class="name">${p.name}</div>
+                    <h2 class="name">${p.name}</h2>
                 </div>
             </a>
 		<div class="quick-link-shop" 
@@ -2168,7 +2169,16 @@ function refreshSEO() {
     if (metaDesc) {
         metaDesc.setAttribute("content", query ? `Hasil pencarian untuk "${query}" di katalog kami.` : seoData.desc);
     }
+	// Update Open Graph (Facebook/WhatsApp)
+    updateMetaTag('property', 'og:title', document.title);
+    updateMetaTag('property', 'og:description', seoData.desc);
+    updateMetaTag('property', 'og:url', window.location.href);
 
+    // Update Twitter/X Cards
+    updateMetaTag('name', 'twitter:title', document.title);
+    updateMetaTag('name', 'twitter:description', seoData.desc);
+	updateMetaTag('property', 'twitter:url', window.location.href);
+	
     // Update Intro Text
     const introEl = document.getElementById('category-intro');
     if (introEl) introEl.textContent = seoData.intro;
@@ -2179,7 +2189,16 @@ function refreshSEO() {
     // 6. Penanganan Noindex untuk Pencarian (Optional tapi disarankan)
     updateRobots(params);
 }
-
+// Fungsi helper agar kode lebih bersih
+function updateMetaTag(attr, value, content) {
+    let el = document.querySelector(`meta[${attr}="${value}"]`);
+    if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, value);
+        document.head.appendChild(el);
+    }
+    el.setAttribute('content', content);
+}
 /**
  * FUNGSI PENDUKUNG: Canonical & Robots
  */
