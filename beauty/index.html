@@ -117,7 +117,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </svg>
 <!-- State Initialization -->
 <amp-state id="shareState"><script type="application/json">{"showShare": false}</script></amp-state>
-<header><div class="header-container"><div class="brand"><a aria-label="Kecantikan & Perawatan Diri" href="https://list.modenyania.com/beauty/" title="Kecantikan & Perawatan Diri"><svg><use xlink:href="#svg-modenyania-logo"/></svg></a><h1>Kecantikan & Perawatan Diri</h1></div></div></header>
+<header><div class="header-container"><div class="brand"><a aria-label="Kecantikan & Perawatan Diri" href="https://list.modenyania.com/beauty/" title="Kecantikan & Perawatan Diri"><svg><use xlink:href="#svg-modenyania-logo"/></svg></a><h1 id="main-title">Kecantikan & Perawatan Diri</h1><p id="category-intro">Selamat datang di toko kami.</p></div></div></header>
 <div class="overlay" id="overlay"></div>
 <div class="app">
 <aside class="sidebar" id="sidebar">
@@ -130,7 +130,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="badge-status"><div class="badge" id="active-filter">Filter: -</div><div class="status"><span id="count">0</span> produk ditampilkan</div></div>
 </div>
 <div id="product-grid" class="product-grid"></div>
-<div id="empty" class="empty" style="display: none;">Tidak ada produk yang cocok dengan filter atau pencarian.</div>
+<div id="empty" class="empty" style="display: none;">Semua produk sudah ditampilkan!</div>
 </main>
 </div>
 <div class="menu"><div class="menu-inner"><a href="https://list.modenyania.com/" class="menu-child" title="Beranda" aria-label="Beranda"><svg><use xlink:href="#icon-home"></use></svg><span>BERANDA</span></a><a href="https://list.modenyania.com/install-app/" class="menu-child" title="Install BFL" aria-label="Install BFL"><svg><use xlink:href="#icon-mobile"></use></svg><span>INSTALL</span></a>
@@ -139,9 +139,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div></div>
   <script>
 	const NAV_DIMENSIONS = [
-{title: "Mulai dari Kondisimu", // multi-select
+{title: "Pilih Masalah", // multi-select
 groups: [
-  {key: "masalah kulit", label: "Masalah Kulit (Skin Concern)",
+  {key: "masalah kulit wajah", label: "Masalah Kulit Wajah (Facial Skin Concern)",
   items: [
       {key: "dehydrated skin", label: "Dehydrated Skin (Kulit Dehidrasi/Kurang Air)"},
 	  {key: "acne-prone", label: "Acne-Prone (Kulit Rentan Berjerawat)"},
@@ -156,18 +156,7 @@ groups: [
 	  {key: "skin barrier damage", label: "Skin Barrier Damage (Skin Barrier Rusak)"}
 	]
   },
-  {key: "jenis kulit", label: "Tipe/Jenis Kulit (Skin Type)",
-  items: [
-      {key: "normal skin", label: "Normal Skin (Kulit Normal)"},
-      {key: "dry skin", label: "Dry Skin (Kulit Kering)"},
-      {key: "oily skin", label: "Oily Skin (Kulit Berminyak)"},
-	  {key: "combination skin", label: "Combination Skin (Kulit Kombinasi)"},
-	  {key: "sensitive skin", label: "Sensitive Skin (Kulit Sensitif)"},
-	  {key: "aging skin", label: "Aging Skin (Kulit yang Menua)"},
-	  {key: "men's skin", label: "Men's Skin (Kulit Pria)"}
-	]
-  },
-  {key: "masalah rambut", label: "Masalah Rambut (Hair & Scalp Concern)",
+  {key: "masalah rambut & kepala", label: "Masalah Rambut & Kepala (Hair & Scalp Concern)",
   items: [
       {key: "hair fall/hair loss", label: "Hair Fall/Hair Loss (Rambut Rontok Berlebihan)"},
       {key: "thinning hair", label: "Thinning Hair (Rambut Menipis & Kurang Volume)"},
@@ -179,6 +168,21 @@ groups: [
 	  {key: "split ends", label: "Split Ends (Ujung Rambut Bercabang)"},
 	  {key: "sensitive scalp", label: "Sensitive Scalp (Kulit Kepala Sensitif)"},
 	  {key: "itchy scalp", label: "Itchy Scalp (Kulit Kepala Gatal Tanpa Ketombe)"}
+	  // Rambut sulit diatur
+	]
+  }, 
+
+// masalah
+  
+  {key: "jenis kulit", label: "Tipe/Jenis Kulit (Skin Type)",
+  items: [
+      {key: "normal skin", label: "Normal Skin (Kulit Normal)"},
+      {key: "dry skin", label: "Dry Skin (Kulit Kering)"},
+      {key: "oily skin", label: "Oily Skin (Kulit Berminyak)"},
+	  {key: "combination skin", label: "Combination Skin (Kulit Kombinasi)"},
+	  {key: "sensitive skin", label: "Sensitive Skin (Kulit Sensitif)"},
+	  {key: "aging skin", label: "Aging Skin (Kulit yang Menua)"},
+	  {key: "men's skin", label: "Men's Skin (Kulit Pria)"}
 	]
   },
   {key: "jenis rambut", label: "Tipe/Jenis Rambut (Hair Type)",
@@ -203,6 +207,8 @@ groups: [
   }
   ]
 },
+// tujuan
+
 {title: "Pilih Tingkat Perawatanmu", // multi-select
 groups: [
   {key: "routine & treatment", label: "Routine & Treatment (Perawatan Rutin & Intensif)",
@@ -980,7 +986,7 @@ groups: [
   }
   ]
 },
-{title: "Perfume & Fragrance", // multi-select 
+{title: "PERFUME & FRAGRANCE", // multi-select 
 groups: [
   {key: "gender", label: "Pilih Personamu (Gender)",
   items: [
@@ -1036,7 +1042,7 @@ groups: [
   }
   ]
 },
-{title: "Ritual & Treatment", 
+{title: "RITUAL & TREATMENT", 
 groups: [	
   {key: "inner beauty & wellness", label: "Inner Beauty & Wellness (Kecantikan Dari Dalam & Kebugaran)",
   items: [
@@ -1232,8 +1238,984 @@ groups: [
   ]
 }
 	];  
-let allProducts=[],currentData=[],renderedCount=0;const itemsPerLoad=20;let active={cat:null,sub:null,subsub:null,search:"",multi:{}},debounceTimer;const sidebarGroups=document.getElementById("sidebar-groups"),productGrid=document.getElementById("product-grid"),emptyState=document.getElementById("empty"),countEl=document.getElementById("count"),activeEl=document.getElementById("active-filter"),searchInput=document.getElementById("search-input"),btnReset=document.getElementById("btn-reset"),btnAll=document.getElementById("btn-all"),sidebar=document.getElementById("sidebar"),overlay=document.getElementById("overlay"),menuToggle=document.getElementById("menu-toggle"),sidebarCloseBtn=document.getElementById("sidebar-close-btn"),clearBtn=document.getElementById("clear-search"),copyBtn=document.getElementById("copy-search"),copyNotification=document.getElementById("copy-notification"),MULTI_SELECT_CATEGORIES=["kategori g1 l1-a","kategori g1 l1-b"];let MULTI_SELECT_VALUES=[],FINAL_EXCLUDED_PILLS=[];const EXCLUDED_PILLS_BASE=["kategori g1 l1-a","kategori g1 l1-b","under 50k","50k-150k","150k-350k","350k-750k","750k-1500k","1500k++","koleksi merek"];function toggleSidebar(){sidebar.classList.toggle("open"),overlay.classList.toggle("show")}function updateUrl(){let e=new URLSearchParams;active.cat&&e.set("cat",active.cat),active.sub&&e.set("sub",active.sub),active.subsub&&e.set("subsub",active.subsub),active.search&&e.set("q",active.search);let t=e.toString(),a=t?`${window.location.pathname}?${t}`:window.location.pathname;history.pushState(active,"",a)}function readUrlAndApply(){let e=new URLSearchParams(window.location.search),t=e.get("cat"),a=e.get("sub"),s=e.get("subsub"),l=e.get("q");active={cat:t,sub:a,subsub:s,search:l,multi:{}},l&&(searchInput.value=l),applyFilters(),updateSidebarUI(),toggleSearchControls()}function buildSidebar(){sidebarGroups.innerHTML="",NAV_DIMENSIONS.forEach(e=>{let t=document.createElement("h3");t.className="dimension-header",t.textContent=e.title,sidebarGroups.appendChild(t),e.groups.forEach(e=>{let t=document.createElement("details");t.className="group-details",t.dataset.catKey=e.key;let a=MULTI_SELECT_CATEGORIES.includes(e.key),s=e.label.match(/^(.+?)\s*\((.+)\)$/),l=s?s[1]:e.label,i=s?s[2]:"",r=document.createElement("summary"),c=e.items&&e.items.length>0,n=`<span class="label-wrapper"><span class="main-label">${l}</span>${i?`<span class="sub-label">(${i})</span>`:""}</span>`;(c||a)&&(n+='<span class="arrow-indicator"><svg><use xlink:href="#svg-arrow-down"/></svg></span>'),r.innerHTML=n,t.appendChild(r),a||r.addEventListener("click",t=>{t.preventDefault();let a=active.cat===e.key&&!active.sub&&!active.subsub;a?filterCategory(null,null,null):filterCategory(e.key,null,null)});let o=document.createElement("div");o.className="panel",a&&o.classList.add("multi-select-panel"),e.items.forEach(t=>{if(!t||!t.key)return;if(a){let s=t.label.match(/^(.+?)\s*\((.+)\)$/),l=s?s[1]:t.label,i=s?s[2]:"",r=document.createElement("label");r.className="checkbox-item";let c=document.createElement("input");c.type="checkbox",c.name=`filter-${e.key}`,c.value=t.key,c.addEventListener("change",a=>{toggleMultiFilter(e.key,t.key,a.target.checked)});let n=document.createElement("span");n.className="label-content",n.innerHTML=`<span class="main-label">${l}</span>${i?`<span class="sub-label">(${i})</span>`:""}`,r.appendChild(c),r.appendChild(n),o.appendChild(r);return}let u=t.subitems&&Array.isArray(t.subitems)&&t.subitems.length>0,d,p,b=null;if(u){let m=document.createElement("details");m.className="sub-details",m.dataset.subKey=t.key,d=m,p=document.createElement("summary"),m.appendChild(p),(b=document.createElement("div")).className="subpanel",m.appendChild(b)}else{let y=document.createElement("div");y.className="sub-item",y.dataset.subKey=t.key,d=y,(p=document.createElement("div")).className="sub-summary",y.appendChild(p)}let h=t.label.match(/^(.+?)\s*\((.+)\)$/),g=h?h[1]:t.label,v=h?h[2]:"";p.innerHTML=`<div class="summary-inner"><span class="label-wrap"><span class="main-label">${g}</span>${v?`<span class="sub-label">(${v})</span>`:""}</span>${u?'<span class="arrow"><svg><use xlink:href="#svg-arrow-down"/></svg></span>':""}</div>`,p.addEventListener("click",a=>{u&&a.preventDefault(),filterCategory(e.key,t.key,null)}),u&&b&&t.subitems.forEach(a=>{if(!Array.isArray(a)||a.length<2)return;let[s,l]=a,i=l.match(/^(.+?)\s*\((.+)\)$/),r=i?i[1]:l,c=i?i[2]:"",n=document.createElement("button");n.className="chip",n.innerHTML=`<span class="main-label">${r}</span>${c?`<span class="sub-label">(${c})</span>`:""}`,n.dataset.cat=e.key,n.dataset.sub=t.key,n.dataset.subsub=s,n.addEventListener("click",a=>{a.stopPropagation(),filterCategory(e.key,t.key,s)}),b.appendChild(n)}),o.appendChild(d)}),t.appendChild(o),sidebarGroups.appendChild(t)})})}function toggleMultiFilter(e,t,a){active.multi[e]||(active.multi[e]=new Set),a?active.multi[e].add(t):active.multi[e].delete(t),0===active.multi[e].size&&delete active.multi[e],updateSidebarUI(),applyFilters(),updateUrl()}function filterCategory(e,t=null,a=null){if(e&&MULTI_SELECT_CATEGORIES.includes(e))return;let s=t,l=a;active.cat===e&&active.sub===t&&active.subsub===a&&(l?l=null:s&&(s=null)),active={cat:e,sub:s,subsub:l,search:active.search,multi:active.multi},updateSidebarUI(),applyFilters(),updateUrl()}function toggleCategory(e,t=!1){let a=document.querySelectorAll(".group-details"),s=document.querySelector(`.group-details[data-cat-key="${e}"]`);a.forEach(e=>{e!==s||t?e.removeAttribute("open"):e.hasAttribute("open")?e.removeAttribute("open"):e.setAttribute("open","")})}function updateSidebarUI(){if(document.querySelectorAll(".group-details, .sub-details, .chip, .sub-item").forEach(e=>{e.classList.remove("active"),"DETAILS"===e.tagName&&e.removeAttribute("open")}),document.querySelectorAll(".checkbox-item input").forEach(e=>{let t=e.name.replace("filter-",""),a=e.value,s=e.closest(".checkbox-item"),l=active.multi[t]&&active.multi[t].has(a);if(e.checked=l,s&&(l?s.classList.add("is-checked"):s.classList.remove("is-checked")),l){let i=document.querySelector(`.group-details[data-cat-key="${t}"]`);i&&(i.setAttribute("open",""),i.classList.add("active"))}}),active.cat&&!MULTI_SELECT_CATEGORIES.includes(active.cat)){let e=document.querySelector(`.group-details[data-cat-key="${active.cat}"]`);if(e&&(e.classList.add("active"),e.setAttribute("open",""),active.sub)){let t=e.querySelector(`[data-sub-key="${active.sub}"]`);if(t&&(t.classList.add("active"),"DETAILS"===t.tagName&&t.setAttribute("open",""),active.subsub)){let a=t.querySelector(`.chip[data-subsub="${active.subsub}"]`);a&&a.classList.add("active")}}}}function updateFacetVisibility(e){let t=new Set;e.forEach(e=>{e.compiledTags&&e.compiledTags.forEach(e=>t.add(e.toLowerCase().trim()))}),document.querySelectorAll(".checkbox-item, .chip, .sub-item").forEach(e=>{let a=e.querySelector("input"),s=a?a.value:e.dataset.subsub||e.dataset.subKey;if(s){let l=a?a.checked:e.classList.contains("active"),i=t.has(s.toLowerCase());e.classList.toggle("is-empty",!l&&!i)}}),document.querySelectorAll(".sub-details").forEach(e=>{let t=Array.from(e.querySelectorAll(".chip, .sub-item")).some(e=>!e.classList.contains("is-empty"));e.classList.toggle("is-empty",!t)}),document.querySelectorAll(".group-details").forEach(e=>{let t=Array.from(e.querySelectorAll(".sub-details, .checkbox-item, .sub-item")).some(e=>!e.classList.contains("is-empty"));e.classList.toggle("is-empty",!t)})}function toggleSearchControls(){let e=searchInput.value.trim();e.length>0?(clearBtn&&(clearBtn.style.display="block"),copyBtn&&(copyBtn.style.display="block")):(clearBtn&&(clearBtn.style.display="none"),copyBtn&&(copyBtn.style.display="none"))}async function loadProducts(){try{let e=await fetch("https://data.modenyania.com/shop/beauty.json",{cache:"no-store"});if(!e.ok)throw Error(`Failed to load shop.json: ${e.status}`);let t=await e.json();MULTI_SELECT_VALUES=[],"undefined"!=typeof NAV_DIMENSIONS&&NAV_DIMENSIONS.forEach(e=>{e.groups.forEach(e=>{MULTI_SELECT_CATEGORIES.includes(e.key)&&e.items&&e.items.forEach(e=>{e.key&&MULTI_SELECT_VALUES.push(e.key.toLowerCase())})})}),FINAL_EXCLUDED_PILLS=[...EXCLUDED_PILLS_BASE,...MULTI_SELECT_VALUES],allProducts=t.map(e=>{let t=Array.isArray(e.category)?e.category:[e.category],a=Array.isArray(e.subcategory)?e.subcategory:[e.subcategory],s=Array.isArray(e.subsub)?e.subsub:[e.subsub],l=[...t,...a,...s,e.searched].filter(e=>e).map(e=>e.toLowerCase().trim());return e.compiledTags=l,e}),console.log("Data produk berhasil dimuat, tag dikompilasi, dan filter pengecualian siap."),readUrlAndApply()}catch(a){console.error("Error:",a.message),emptyState.textContent="Failed to load product data. Please check the shop.json file.",emptyState.style.display="block"}}function renderProducts(e=!1){e&&(productGrid.innerHTML="",renderedCount=0);let t=currentData.slice(renderedCount,renderedCount+20);emptyState.style.display=0===t.length?"block":"none";let a=e=>Array.isArray(e)?e.map(e=>(e||"").toLowerCase().trim()).filter(e=>e&&!FINAL_EXCLUDED_PILLS.includes(e)):[];t.forEach((e,t)=>{let s=a(e.category),l=s.join(", "),i=a(e.subcategory),r=i.join(", "),c=a(e.subsub),n=c.join(", "),o=`${l?`<span class="pill category-pill">${l}</span>`:""}${r?`<span class="pill subcat-pill">${r}</span>`:""}${n?`<span class="pill subsub-pill">${n}</span>`:""}`,u=document.createElement("div");u.className="product-item",u.innerHTML=`<a href="${e.articleUrl||"#"}" target="_blank" title="${e.name}" class="quick-link-article"><div class="thumb-wrapper"><img class="thumb" src="${e.image}" alt="${e.name}"></div><div class="body"><div class="meta"><div class="visible-pills"><span class="pill">${e.searched||""}</span><span class="pill price-pill">${e.price||"-"}<span class="tooltip-icon">?</span><span class="tooltip-text">Harga ini akurat pada saat daftar ini dibuat. Silakan periksa platform <i>e-commerce</i> yang tersedia untuk memastikan harga terbaru!</span></span></div><details class="category-meta-details"><summary class="pill-summary"><span class="toggle-text">Lihat Tag Produk!</span><span class="meta-toggle-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary><div class="hidden-pills">${o}</div></details></div><div class="name">${e.name}</div></div></a><div class="quick-link-shop" data-id="${e.searched||""}" data-name="${e.name||""}">${(e.links||[]).map(e=>`<a href="${e.url}" class="affiliate-btn" target="_blank" title="${e.title||""}" data-type="${e["data-type"]||""}"><svg><use href="#${e.logo}"></use></svg></a>`).join("")||'<div style="opacity:.6;padding:8px 0">No links</div>'}</div>`,productGrid.appendChild(u),requestAnimationFrame(()=>setTimeout(()=>u.classList.add("show"),12+50*t))}),renderedCount+=t.length,countEl.textContent=currentData.length}function applyFilters(){let e=(active.cat||"").toLowerCase(),t=(active.sub||"").toLowerCase(),a=(active.subsub||"").toLowerCase(),s=(active.search||"").toLowerCase().trim(),l=a||t||e;currentData=allProducts.filter(t=>{let a=t.compiledTags||[],i=!l||a.includes(l)&&!MULTI_SELECT_CATEGORIES.includes(e),r=!0;for(let c in active.multi){if(!MULTI_SELECT_CATEGORIES.includes(c))continue;let n=active.multi[c];if(0===n.size)continue;let o=Array.from(n).some(e=>a.includes(e));if(!o){r=!1;break}}let u=!s||(t.name||"").toLowerCase().includes(s)||a.some(e=>e.includes(s));return i&&r&&u});let i=[];s&&i.push(`Pencarian: "${s}"`);let r="";for(let c in e&&!MULTI_SELECT_CATEGORIES.includes(e)&&(r+=e,t&&(r+=` › ${t}`),a&&(r+=` › ${a}`),r&&i.push(`Navigasi: ${r}`)),active.multi)if(MULTI_SELECT_CATEGORIES.includes(c)){let n=active.multi[c];if(n.size>0){let o=Array.from(n).join(", "),u=c.charAt(0).toUpperCase()+c.slice(1);i.push(`${u}: (${o})`)}}let d="Filter: ";i.length>0?d+=i.join(" | "):d+="—",activeEl.textContent=d,renderProducts(!0),updateFacetVisibility(currentData)}function resetFilter(e=!0){active={cat:null,sub:null,subsub:null,search:"",multi:{}},searchInput.value="",document.querySelectorAll(".group-details, .sub-details").forEach(e=>{e.removeAttribute("open"),e.classList.remove("active"),e.classList.remove("is-empty")}),document.querySelectorAll(".chip, .checkbox-item, .sub-item").forEach(e=>{e.classList.remove("is-empty")}),updateSidebarUI(),activeEl.textContent="Filter: —",currentData=[...allProducts],renderProducts(!0),updateUrl(),updateFacetVisibility(allProducts),e&&window.innerWidth<=860&&toggleSidebar(),toggleSearchControls()}function showAll(){active={cat:null,sub:null,subsub:null,search:active.search,multi:{}},updateSidebarUI(),activeEl.textContent=active.search?`Filter: Pencarian "${active.search}"`:"Filter: —",currentData=[...allProducts].filter(e=>{let t=(e.searched||"").toLowerCase();return!active.search||t.includes(active.search.toLowerCase().trim())}),renderProducts(!0),updateUrl(),updateFacetVisibility(currentData),window.innerWidth<=860&&toggleSidebar(),toggleSearchControls()}function debounce(e,t){return function(...a){clearTimeout(debounceTimer),debounceTimer=setTimeout(()=>e.apply(this,a),t)}}function showCopyNotification(){copyNotification&&(copyNotification.classList.add("show"),setTimeout(()=>{copyNotification.classList.remove("show")},1500))}menuToggle.addEventListener("click",toggleSidebar),overlay.addEventListener("click",toggleSidebar),sidebarCloseBtn&&sidebarCloseBtn.addEventListener("click",toggleSidebar),searchInput.addEventListener("input",debounce(()=>{active.search=searchInput.value,updateSidebarUI(),applyFilters(),updateUrl()},300)),searchInput.addEventListener("input",toggleSearchControls),clearBtn&&clearBtn.addEventListener("click",e=>{e.preventDefault(),resetFilter(!1),toggleSearchControls(),searchInput.focus()}),copyBtn&&copyBtn.addEventListener("click",async e=>{e.preventDefault();let t=searchInput.value;try{await navigator.clipboard.writeText(t),showCopyNotification()}catch(a){console.error("Gagal menyalin teks: ",a)}}),btnReset.addEventListener("click",()=>resetFilter(!0)),btnAll.addEventListener("click",showAll),window.addEventListener("scroll",()=>{window.innerHeight+window.scrollY>=document.body.offsetHeight-120&&renderProducts()},{passive:!0}),window.addEventListener("popstate",e=>{if(active.multi={},e.state)active.cat=e.state.cat,active.sub=e.state.sub,active.subsub=e.state.subsub,active.search=e.state.search;else{readUrlAndApply();return}active.search?searchInput.value=active.search:searchInput.value="",applyFilters(),updateSidebarUI(),toggleSearchControls()}),document.addEventListener("DOMContentLoaded",()=>{buildSidebar(),loadProducts(),toggleSearchControls()});
+	let allProducts = [];
+	let currentData = [];
+	let renderedCount = 0;
+	const itemsPerLoad = 20;
+
+    // ⭐️ MODIFIKASI: Tambahkan properti 'multi' untuk filter checkbox
+	let active = { cat: null, sub: null, subsub: null, search: '', multi: {} };
+	let debounceTimer;
+
+	const sidebarGroups = document.getElementById('sidebar-groups');
+	const productGrid = document.getElementById('product-grid');
+	const emptyState = document.getElementById('empty');
+	const countEl = document.getElementById('count');
+	const activeEl = document.getElementById('active-filter');
+	const searchInput = document.getElementById('search-input');
+	const btnReset = document.getElementById('btn-reset');
+	const btnAll = document.getElementById('btn-all');
+	const sidebar = document.getElementById('sidebar');
+	const overlay = document.getElementById('overlay');
+	const menuToggle = document.getElementById('menu-toggle');
+	const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+
+    // ⭐️ TAMBAHAN VARIABEL UNTUK KONTROL PENCARIAN BARU
+    const clearBtn = document.getElementById('clear-search');
+    const copyBtn = document.getElementById('copy-search');
+	const copyNotification = document.getElementById('copy-notification');
+
+    // ⭐️ BARU: Daftar Kategori yang menggunakan Multi-Select
+    // GANTI KEY INI SESUAI DENGAN KEY DI NAV_DIMENSIONS ANDA
+    const MULTI_SELECT_CATEGORIES = ['kategori g1 l1-a','kategori g1 l1-b']; 
+
+	// ⭐️ VARIABEL BARU: Untuk menyimpan semua nilai/tag spesifik dari kategori multi-select
+	let MULTI_SELECT_VALUES = [];
+	let FINAL_EXCLUDED_PILLS = [];
+    // ⭐️ DAFTAR PENGECUALIAN UNIVERSAL (Keeping user's provided list)
+	const EXCLUDED_PILLS_BASE = ['kategori g1 l1-a','kategori g1 l1-b','under 50k','50k-150k','150k-350k','350k-750k','750k-1500k','1500k++','koleksi merek'
+    // ... tambahkan key L2/L3 lainnya di sini
+	];
+
+	function toggleSidebar() {
+		sidebar.classList.toggle('open');
+		overlay.classList.toggle('show');
+	}
+
+	menuToggle.addEventListener('click', toggleSidebar);
+	overlay.addEventListener('click', toggleSidebar);
+
+	if (sidebarCloseBtn) {
+		sidebarCloseBtn.addEventListener('click', toggleSidebar);
+	}
+
+	function updateUrl() {
+		const params = new URLSearchParams();
+		if (active.cat) params.set('cat', active.cat);
+		if (active.sub) params.set('sub', active.sub);
+		if (active.subsub) params.set('subsub', active.subsub);
+		if (active.search) params.set('q', active.search);
+		
+		const queryString = params.toString();
+		const newUrl = queryString 
+			? `${window.location.pathname}?${queryString}`
+			: window.location.pathname;
+			
+		history.pushState(active, '', newUrl);
+
+		// TEPAT DI SINI: Update SEO segera setelah URL berubah
+		refreshSEO(); 
+	}	
+	function readUrlAndApply() {
+		const params = new URLSearchParams(window.location.search);
+		const urlCat = params.get('cat');
+		const urlSub = params.get('sub');
+		const urlSubsub = params.get('subsub');
+		const urlSearch = params.get('q');
+		
+		// Perhatikan: Multi-select tidak dibaca dari URL. Ini akan direset pada setiap load.
+		active = { 
+			cat: urlCat, 
+			sub: urlSub, 
+			subsub: urlSubsub, 
+			search: urlSearch,
+			multi: {} // Selalu kosongkan multi-filter saat load dari URL
+		};
+
+		if (urlSearch) {
+			searchInput.value = urlSearch;
+		}
+		
+		applyFilters();
+		updateSidebarUI();
+		toggleSearchControls();
+
+		// TEPAT DI SINI: Sinkronkan SEO dengan state yang baru dibaca dari URL
+		refreshSEO();
+	}
+function buildSidebar() {
+	sidebarGroups.innerHTML = '';
+	NAV_DIMENSIONS.forEach(dimension => {
+		const dimHeader = document.createElement('h3');
+		dimHeader.className = 'dimension-header';
+		dimHeader.textContent = dimension.title;
+		sidebarGroups.appendChild(dimHeader);
+		
+		dimension.groups.forEach(group => {	     
+			const det = document.createElement('details');
+			det.className = 'group-details';
+			det.dataset.catKey = group.key; 
+
+            // ⭐️ BARU: Cek apakah ini kategori multi-select
+            const isMultiSelect = MULTI_SELECT_CATEGORIES.includes(group.key); 
+
+			const match = group.label.match(/^(.+?)\s*\((.+)\)$/);
+			const mainLabel = match ? match[1] : group.label;
+			const subLabel = match ? match[2] : '';
+
+			const sum = document.createElement('summary');
+			
+			// Cek apakah kategori Level 1 memiliki sub-kategori (L2)
+			const hasL2Items = group.items && group.items.length > 0;
+			
+			// HTML untuk panah kustom 
+			const arrowHtml = `<span class="arrow-indicator"><svg><use xlink:href="#svg-arrow-down"/></svg></span>`;
+			
+			let labelWrapper = `<span class="label-wrapper"><span class="main-label">${mainLabel}</span>${subLabel ? `<span class="sub-label">(${subLabel})</span>` : ''}</span>`;
+    
+			let summaryContent = labelWrapper;
+			
+			// Tambahkan panah hanya jika ada L2 ATAU jika ini adalah multi-select (untuk menunjukkan panel yang bisa dibuka)
+			if (hasL2Items || isMultiSelect) {
+			    summaryContent += arrowHtml;
+			}
+			
+			sum.innerHTML = summaryContent;
+			det.appendChild(sum);
+			
+            // ⭐️ MODIFIKASI: L1 click hanya aktif untuk filter single-select
+            if (!isMultiSelect) {
+                sum.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const isActive = active.cat === group.key && !active.sub && !active.subsub;
+
+                    if (isActive) {
+                        filterCategory(null, null, null); 
+                    } else {
+                        filterCategory(group.key, null, null);
+                    }
+                });
+            } else {
+                // Untuk multi-select, summary hanya bertindak sebagai toggle (sudah default behavior details/summary)
+                // Kita tidak memanggil filterCategory() di sini
+            }
+
+
+			const panel = document.createElement('div');
+			panel.className = 'panel';
+			
+			// ⭐️ MODIFIKASI: Tambahkan kelas spesifik jika ini adalah Multi-Select
+            if (isMultiSelect) {
+                panel.classList.add('multi-select-panel'); 
+            }
+			
+			// Logika item dan subitem
+			group.items.forEach(item => {
+				
+				if (!item || !item.key) return;
+                
+                // ⭐️ LOGIKA BARU UNTUK MULTI-SELECT CHECKBOX
+                if (isMultiSelect) {
+                    const itemMatch = item.label.match(/^(.+?)\s*\((.+)\)$/);
+                    const itemMain = itemMatch ? itemMatch[1] : item.label;
+                    const itemSub = itemMatch ? itemMatch[2] : '';
+                    
+                    const checkboxContainer = document.createElement('label');
+                    checkboxContainer.className = 'checkbox-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.name = `filter-${group.key}`; // Contoh: filter-gender
+                    checkbox.value = item.key; 
+
+                    checkbox.addEventListener('change', (e) => {
+                        toggleMultiFilter(group.key, item.key, e.target.checked); 
+                    });
+                    
+                    const labelText = document.createElement('span');
+                    labelText.className = 'label-content'; 
+                    labelText.innerHTML = `<span class="main-label">${itemMain}</span>${itemSub ? `<span class="sub-label">(${itemSub})</span>` : ''}`;
+
+                    checkboxContainer.appendChild(checkbox);
+                    checkboxContainer.appendChild(labelText);
+                    panel.appendChild(checkboxContainer);
+
+                    return; // Skip sisa logika (L2/L3) jika ini adalah multi-select
+                }
+                
+                // -----------------------------------------------------
+                // LOGIKA LAMA (Single-Select L2/L3) DIMULAI DI SINI
+                // -----------------------------------------------------
+				const hasSubitems = item.subitems && Array.isArray(item.subitems) && item.subitems.length > 0;
+				let subContainer, subSum, subPanel = null;
+				
+				// L2: Sub-item Container
+				if (hasSubitems) {
+					const subDet = document.createElement('details');
+					subDet.className = 'sub-details';
+					subDet.dataset.subKey = item.key;
+					subContainer = subDet;
+
+					subSum = document.createElement('summary');
+					subDet.appendChild(subSum);
+
+					subPanel = document.createElement('div');
+					subPanel.className = 'subpanel';
+					subDet.appendChild(subPanel);
+				} else {
+					const subDiv = document.createElement('div');
+					subDiv.className = 'sub-item';
+					subDiv.dataset.subKey = item.key;
+					subContainer = subDiv;
+
+					subSum = document.createElement('div');
+					subSum.className = 'sub-summary';
+					subDiv.appendChild(subSum);
+				}
+
+				const itemMatch = item.label.match(/^(.+?)\s*\((.+)\)$/);
+				const itemMain = itemMatch ? itemMatch[1] : item.label;
+				const itemSub = itemMatch ? itemMatch[2] : '';
+				
+				// L2: Isi Summary/Label
+				subSum.innerHTML = `<div class="summary-inner"><span class="label-wrap"><span class="main-label">${itemMain}</span>${itemSub ? `<span class="sub-label">(${itemSub})</span>` : ''}</span>${hasSubitems ? '<span class="arrow"><svg><use xlink:href="#svg-arrow-down"/></svg></span>' : ''}</div>`;
+
+				// L2: Event Listener
+				subSum.addEventListener('click', (e) => {
+					if (hasSubitems) {
+						e.preventDefault(); 
+					}
+					filterCategory(group.key, item.key, null);
+				});
+
+				// L3: Sub-sub Items (Chips)
+				if (hasSubitems && subPanel) {
+					item.subitems.forEach(sub => {
+						if (!Array.isArray(sub) || sub.length < 2) return;
+						const [subKey, subLabelText] = sub;
+
+						const subMatch = subLabelText.match(/^(.+?)\s*\((.+)\)$/);
+						const subMain = subMatch ? subMatch[1] : subLabelText;
+						const subLang = subMatch ? subMatch[2] : '';
+
+						const subBtn = document.createElement('button');
+						subBtn.className = 'chip';
+						subBtn.innerHTML = `<span class="main-label">${subMain}</span>${subLang ? `<span class="sub-label">(${subLang})</span>` : ''}`;
+
+						subBtn.dataset.cat = group.key;
+						subBtn.dataset.sub = item.key;
+						subBtn.dataset.subsub = subKey;
+
+						subBtn.addEventListener('click', (e) => {
+							e.stopPropagation();
+							filterCategory(group.key, item.key, subKey);
+						});
+
+						subPanel.appendChild(subBtn);
+					});
+				}
+
+				panel.appendChild(subContainer);
+			});
+			
+			det.appendChild(panel);
+			sidebarGroups.appendChild(det);
+		}); 
+	}); 
+}
+
+// ⭐️ FUNGSI BARU: Mengelola status checkbox multi-select
+function toggleMultiFilter(catKey, subKey, isChecked) {
+    if (!active.multi[catKey]) {
+        active.multi[catKey] = new Set();
+    }
+
+    if (isChecked) {
+        active.multi[catKey].add(subKey);
+    } else {
+        active.multi[catKey].delete(subKey);
+    }
+    
+    if (active.multi[catKey].size === 0) {
+        delete active.multi[catKey];
+    }
+    
+    updateSidebarUI(); 
+    applyFilters();
+    updateUrl(); 
+}
+
+// Logika filterCategory (Single-Select) tetap sama
+function filterCategory(category, subcategory = null, subsubcategory = null) {
+    // Cek jika kategori ini adalah multi-select, jangan terapkan sebagai single-select
+    if (category && MULTI_SELECT_CATEGORIES.includes(category)) return;
+
+    let newCat = category;
+	let newSub = subcategory;
+	let newSubsub = subsubcategory;
+
+    if (active.cat === category && active.sub === subcategory && active.subsub === subsubcategory) {
+        if (newSubsub) {
+			newSubsub = null;
+		} 
+		else if (newSub) {
+			newSub = null;
+		}
+    }
+
+	active = { cat: newCat, sub: newSub, subsub: newSubsub, search: active.search, multi: active.multi }; // Pertahankan multi-filter
+
+	updateSidebarUI();
+	applyFilters();
+	updateUrl();
+}
+
+// Tambahkan fungsi baru di area definisi fungsi (misalnya, di atas updateSidebarUI)
+function toggleCategory(catKey, forceClose = false) {
+    const allDetails = document.querySelectorAll('.group-details');
+    const targetDet = document.querySelector(`.group-details[data-cat-key="${catKey}"]`);
+
+    allDetails.forEach(det => {
+        if (det === targetDet && !forceClose) {
+            if (det.hasAttribute('open')) {
+                det.removeAttribute('open');
+            } else {
+                det.setAttribute('open', '');
+            }
+        } else {
+            det.removeAttribute('open');
+        }
+    });
+}
+
+function updateSidebarUI() {
+    
+	// 1. Reset semua status active DAN tutup paksa semua Details Level 1
+    document.querySelectorAll('.group-details, .sub-details, .chip, .sub-item').forEach(el => {
+        el.classList.remove('active');
+        // Tutup paksa Level 1 & 2. (Kecuali yang di set open di bawah)
+        if (el.tagName === 'DETAILS') {
+             el.removeAttribute('open'); 
+        }
+    });
+
+    // ⭐️ BARU: Terapkan status check pada checkbox multi-select
+    document.querySelectorAll('.checkbox-item input').forEach(checkbox => {
+        const catKey = checkbox.name.replace('filter-', '');
+        const subKey = checkbox.value;
+        
+        // Temukan elemen label induk terdekat
+        const parentLabel = checkbox.closest('.checkbox-item');
+        
+        const isChecked = active.multi[catKey] && active.multi[catKey].has(subKey);
+        checkbox.checked = isChecked;
+        
+        // =================================================================
+        // ⭐️ SCRIPT TAMBAHAN UNTUK KONTROL KELAS CSS (.is-checked)
+        // =================================================================
+        if (parentLabel) {
+            if (isChecked) {
+                parentLabel.classList.add('is-checked');
+            } else {
+                parentLabel.classList.remove('is-checked');
+            }
+        }
+        // =================================================================
+        
+        // Buka parent L1 Details jika ada item multi-select yang dipilih
+        if (isChecked) {
+            const catDet = document.querySelector(`.group-details[data-cat-key="${catKey}"]`);
+            if (catDet) {
+                catDet.setAttribute('open', ''); // Paksa buka L1
+                catDet.classList.add('active'); // Tandai L1 sebagai aktif/terisi
+            }
+        }
+    });
+
+    // 2. Terapkan status active untuk filter navigasi tunggal
+    if (active.cat) {
+        // ... (Logika filter navigasi tunggal Anda yang lainnya) ...
+        // Cek apakah L1 ini BUKAN kategori multi-select
+        if (!MULTI_SELECT_CATEGORIES.includes(active.cat)) { 
+            const catDet = document.querySelector(`.group-details[data-cat-key="${active.cat}"]`);
+            
+            if (catDet) {
+                catDet.classList.add('active');
+                catDet.setAttribute('open', ''); 
+
+                if (active.sub) {
+                    const subContainer = catDet.querySelector(`[data-sub-key="${active.sub}"]`);
+
+                    if (subContainer) {
+                        subContainer.classList.add('active');
+
+                        if (subContainer.tagName === 'DETAILS') {
+                            subContainer.setAttribute('open', ''); 
+                        }
+
+                        if (active.subsub) {
+                            const chip = subContainer.querySelector(`.chip[data-subsub="${active.subsub}"]`);
+                            if (chip) chip.classList.add('active');
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+function updateFacetVisibility(filteredProducts) {
+    // 1. Kumpulkan semua tag dari produk yang sedang tampil
+    const availableTags = new Set();
+    filteredProducts.forEach(p => {
+        if (p.compiledTags) {
+            p.compiledTags.forEach(tag => availableTags.add(tag.toLowerCase().trim()));
+        }
+    });
+
+    // 2. Update Item Kecil (Multi-select checkbox, Chip L3, dan Item L2 tanpa sub)
+    document.querySelectorAll('.checkbox-item, .chip, .sub-item').forEach(el => {
+        const input = el.querySelector('input');
+        const key = input ? input.value : (el.dataset.subsub || el.dataset.subKey);
+        
+        if (key) {
+            const isChecked = input ? input.checked : el.classList.contains('active');
+            const isExist = availableTags.has(key.toLowerCase());
+            
+            // Sembunyikan jika tidak dipilih DAN tidak ada di stok produk saat ini
+            el.classList.toggle('is-empty', !isChecked && !isExist);
+        }
+    });
+
+    // 3. Update Wadah L2 (sub-details)
+    document.querySelectorAll('.sub-details').forEach(sub => {
+        // Cek apakah ada anak (chip/sub-item) yang tidak tersembunyi
+        const hasVisibleChildren = Array.from(sub.querySelectorAll('.chip, .sub-item'))
+                                       .some(child => !child.classList.contains('is-empty'));
+        sub.classList.toggle('is-empty', !hasVisibleChildren);
+    });
+
+    // 4. Update Wadah Utama L1 (group-details)
+    document.querySelectorAll('.group-details').forEach(group => {
+        // Cek apakah ada konten (multi-select atau sub-kategori) yang tidak tersembunyi
+        const hasVisibleContent = Array.from(group.querySelectorAll('.sub-details, .checkbox-item, .sub-item'))
+                                       .some(item => !item.classList.contains('is-empty'));
+        group.classList.toggle('is-empty', !hasVisibleContent);
+    });
+}
+
+// ⭐️ DEFINISI FUNGSI KONTROL PENCARIAN BARU
+function toggleSearchControls() {
+    const value = searchInput.value.trim();
+    if (value.length > 0) {
+        if (clearBtn) clearBtn.style.display = 'block';
+        if (copyBtn) copyBtn.style.display = 'block';
+    } else {
+        if (clearBtn) clearBtn.style.display = 'none';
+        if (copyBtn) copyBtn.style.display = 'none';
+    }
+}
+
+async function loadProducts() {
+    try {
+        const res = await fetch('https://data.modenyania.com/shop/beauty.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Failed to load shop.json: ${res.status}`);
+        const productsData = await res.json(); 
+        
+        // 1. Kumpulkan Nilai Multi-Select dari NAV_DIMENSIONS
+        MULTI_SELECT_VALUES = []; // Reset list nilai multi-select
+
+        if (typeof NAV_DIMENSIONS !== 'undefined') {
+            NAV_DIMENSIONS.forEach(dimension => {
+                dimension.groups.forEach(group => { 
+                    if (MULTI_SELECT_CATEGORIES.includes(group.key) && group.items) {
+                        group.items.forEach(item => {
+                            if (item.key) {
+                                MULTI_SELECT_VALUES.push(item.key.toLowerCase());
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // ⭐️ PENTING: Mengisi variabel GLOBAL FINAL_EXCLUDED_PILLS ⭐️
+        // (Ini akan diakses oleh renderProducts())
+        FINAL_EXCLUDED_PILLS = [...EXCLUDED_PILLS_BASE, ...MULTI_SELECT_VALUES];
+
+        // --- 🎯 OPTIMASI KOMPILASI TAG ---
+        allProducts = productsData.map(p => {
+            const pc = Array.isArray(p.category) ? p.category : [p.category];
+            const psc = Array.isArray(p.subcategory) ? p.subcategory : [p.subcategory];
+            const pssc = Array.isArray(p.subsub) ? p.subsub : [p.subsub];
+            
+            const allTags = [...pc, ...psc, ...pssc, p.searched]
+                .filter(t => t) 
+                .map(t => t.toLowerCase().trim());
+            
+            p.compiledTags = allTags;
+            return p;
+        });
+        // --- 🎯 OPTIMASI KOMPILASI TAG BERAKHIR DI SINI ---
+        
+        console.log("Data produk berhasil dimuat, tag dikompilasi, dan filter pengecualian siap.");
+        readUrlAndApply();
+
+    } catch (e) {
+        console.error('Error:', e.message);
+        emptyState.textContent = 'Failed to load product data. Please check the shop.json file.';
+        emptyState.style.display = 'block';
+    }
+}
+
+function renderProducts(reset = false) {
+    if (reset) {
+        productGrid.innerHTML = '';
+        renderedCount = 0;
+    }
+
+    const slice = currentData.slice(renderedCount, renderedCount + itemsPerLoad);
+    emptyState.style.display = slice.length === 0 ? 'block' : 'none';
+
+	const filterPills = (tagArray) => {
+        if (!Array.isArray(tagArray)) return [];
+        
+        return tagArray
+            .map(tag => (tag || '').toLowerCase().trim()) 
+            .filter(tag => tag && !FINAL_EXCLUDED_PILLS.includes(tag)); // ⭐️ Menggunakan FINAL_EXCLUDED_PILLS
+    };
+
+    slice.forEach((p, idx) => {
+        
+        const filteredPrimaryCats = filterPills(p.category);
+        const displayedPrimaryCats = filteredPrimaryCats.join(', ');
+
+        const filteredSubcats = filterPills(p.subcategory);
+        const displayedSubcats = filteredSubcats.join(', ');
+
+        const filteredSubsubs = filterPills(p.subsub);
+        const displayedSubsubs = filteredSubsubs.join(', ');
+
+        const categoryPills = `
+            ${displayedPrimaryCats ? `<span class="pill category-pill">${displayedPrimaryCats}</span>` : ''}
+            ${displayedSubcats ? `<span class="pill subcat-pill">${displayedSubcats}</span>` : ''}
+            ${displayedSubsubs ? `<span class="pill subsub-pill">${displayedSubsubs}</span>` : ''}
+        `;
+        
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.innerHTML = `
+            <a href="${p.articleUrl || '#'}" target="_blank" title="${p.name}" class="quick-link-article">
+                <div class="thumb-wrapper">
+                    <img class="thumb" src="${p.image}" alt="${p.name}">
+                </div>
+                <div class="body">
+                    <div class="meta">
+                        
+                        <div class="visible-pills"> 
+                            <span class="pill">${p.searched || ''}</span>
+                            <span class="pill price-pill">${p.price || '-'}
+                                <span class="tooltip-icon">?</span>
+                                <span class="tooltip-text">
+                                    Harga ini akurat pada saat daftar ini dibuat. Silakan periksa platform <i>e-commerce</i> yang tersedia untuk memastikan harga terbaru!
+                                </span>
+                            </span>
+                        </div>
+                        <details class="category-meta-details">
+                            <summary class="pill-summary">
+                                <span class="toggle-text">Lihat Tag Produk!</span> 
+                                <span class="meta-toggle-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline> 
+                                    </svg>
+                                </span>
+                            </summary>
+
+                            <div class="hidden-pills">
+                                ${categoryPills}
+                            </div>
+                        </details>
+                    </div>
+                    <div class="name">${p.name}</div>
+                </div>
+            </a>
+		<div class="quick-link-shop" 
+			 data-id="${p.searched || ''}" 
+			 data-name="${p.name || ''}">
+			${(p.links || [])
+				.map(l => `
+					<a href="${l.url}" 
+					   class="affiliate-btn" 
+					   target="_blank" 
+					   title="${l.title || ''}" 
+					   data-type="${l['data-type'] || ''}">
+						<svg><use href="#${l.logo}"></use></svg>
+					</a>
+				`).join('') || '<div style="opacity:.6;padding:8px 0">No links</div>'}
+		</div>			
+        `;
+        productGrid.appendChild(div);
+        requestAnimationFrame(() => setTimeout(() => div.classList.add('show'), 12 + idx * 50));
+    });
+
+    renderedCount += slice.length;
+    countEl.textContent = currentData.length;
+}
+
+// ⭐️ MODIFIKASI: applyFilters diperbarui untuk Multi-Select dan Teks Filter
+function applyFilters() {
+    // 1. Dapatkan filter aktif yang dinormalisasi
+    const cat = (active.cat || '').toLowerCase(); 
+    const sub = (active.sub || '').toLowerCase(); 
+    const subsub = (active.subsub || '').toLowerCase(); 
+    const search = (active.search || '').toLowerCase().trim();
+
+    // Tentukan filter navigasi tunggal yang paling spesifik 
+    const activeSingleFilterTag = subsub || sub || cat; 
+
+    // =========================================================================
+    // PROSES PEMFILTERAN
+    // =========================================================================
+
+    currentData = allProducts.filter(p => {
+        const tags = p.compiledTags || []; 
+        
+        // --- 1. FILTER BERDASARKAN NAVIGASI TUNGGAL (L1, L2, L3) ---
+        // Produk harus mengandung activeSingleFilterTag, kecuali jika L1 tersebut adalah kategori multi-select.
+        const matchesSingleFilter = !activeSingleFilterTag || 
+                                    (tags.includes(activeSingleFilterTag) && !MULTI_SELECT_CATEGORIES.includes(cat));
+
+        // ⭐️ BARU: --- 2. FILTER BERDASARKAN MULTI-SELECT ---
+        let matchesMultiFilter = true;
+        
+        for (const catKey in active.multi) {
+            if (!MULTI_SELECT_CATEGORIES.includes(catKey)) continue; // Hanya proses kategori multi-select
+            
+            const selectedTags = active.multi[catKey]; 
+            
+            if (selectedTags.size === 0) continue;
+            
+            // Produk harus match SETIDAKNYA SATU dari tag yang dipilih di kategori ini.
+            const productHasAnySelectedTag = Array.from(selectedTags).some(selectedTag => {
+                // Semua tag di compiledTags sudah lowercase
+                return tags.includes(selectedTag); 
+            });
+            
+            if (!productHasAnySelectedTag) {
+                matchesMultiFilter = false;
+                break; 
+            }
+        }
+        
+        // --- 3. FILTER BERDASARKAN PENCARIAN (Search Input) ---
+        const matchesSearch = !search || 
+            (
+                (p.name || '').toLowerCase().includes(search) || 
+                tags.some(tag => tag.includes(search))
+            );
+
+        // KEMBALIKAN HASIL FILTER: Harus cocok dengan kriteria navigasi AND kriteria multi-select AND kriteria pencarian
+        return matchesSingleFilter && matchesMultiFilter && matchesSearch;
+    });
+
+    // =========================================================================
+    // PEMBARUAN UI (TEKS FILTER)
+    // =========================================================================
+    
+    let activePills = [];
+
+    // 1. Filter Pencarian
+    if (search) {
+        activePills.push(`Pencarian: "${search}"`);
+    }
+
+    // 2. Filter Navigasi Tunggal
+    let singleFilterText = '';
+    
+    if (cat && !MULTI_SELECT_CATEGORIES.includes(cat)) {
+        singleFilterText += cat;
+        if (sub) singleFilterText += ` › ${sub}`;
+        if (subsub) singleFilterText += ` › ${subsub}`;
+        
+        if (singleFilterText) {
+             activePills.push(`Navigasi: ${singleFilterText}`);
+        }
+    }
+    
+    // 3. Filter Multi-Select
+    for (const catKey in active.multi) {
+        // Hanya proses kategori yang terdaftar sebagai multi-select
+        if (MULTI_SELECT_CATEGORIES.includes(catKey)) {
+            const selectedTags = active.multi[catKey];
+            
+            if (selectedTags.size > 0) {
+                const tagsList = Array.from(selectedTags).join(', ');
+                // Kapitalisasi catKey untuk tampilan (misalnya 'gender' menjadi 'Gender')
+                const formattedCatKey = catKey.charAt(0).toUpperCase() + catKey.slice(1); 
+                activePills.push(`${formattedCatKey}: (${tagsList})`);
+            }
+        }
+    }
+
+    // Final Display
+    let filterText = 'Filter: ';
+    if (activePills.length > 0) {
+        filterText += activePills.join(' | ');
+    } else {
+        filterText += '—';
+    }
+
+    activeEl.textContent = filterText;
+    renderProducts(true);
+	
+	// ⭐️ PERBAIKAN: Gunakan 'currentData', bukan 'filtered'
+	updateFacetVisibility(currentData);
+}
+
+function resetFilter(closeSidebar = true) {
+    active = { cat: null, sub: null, subsub: null, search: '', multi: {} };
+    searchInput.value = '';
+
+    // 1. Reset status UI dasar
+    document.querySelectorAll('.group-details, .sub-details').forEach(el => {
+        el.removeAttribute('open');
+        el.classList.remove('active');
+        el.classList.remove('is-empty'); // ⭐️ Tambahkan ini: Hapus status sembunyi
+    });
+
+    // 2. Tampilkan kembali semua item navigasi (Chips, Checkbox, Sub-item)
+    document.querySelectorAll('.chip, .checkbox-item, .sub-item').forEach(el => {
+        el.classList.remove('is-empty'); // ⭐️ Bangunkan semua navigasi
+    });
+
+    updateSidebarUI(); 
+    activeEl.textContent = 'Filter: —';
+    currentData = [...allProducts]; // Kembalikan semua data
+    renderProducts(true);
+    updateUrl();
+    
+    // ⭐️ PENTING: Jalankan ulang pengecekan facet dengan data utuh
+    updateFacetVisibility(allProducts); 
+     
+    if (closeSidebar && window.innerWidth <= 860) toggleSidebar();
+    toggleSearchControls();
+}
+
+// ... (sisa fungsi showAll, debounce, dan event listeners) ...
+
+function showAll() {
+    active = { cat: null, sub: null, subsub: null, search: active.search, multi: {} };
+    updateSidebarUI(); 
+    activeEl.textContent = active.search ? `Filter: Pencarian "${active.search}"` : 'Filter: —';
+
+    currentData = [...allProducts].filter(p => {
+        const psr = (p.searched || '').toLowerCase();
+        return !active.search || psr.includes(active.search.toLowerCase().trim());
+    });
+
+    renderProducts(true);
+    updateUrl();
+
+    // ⭐️ Jalankan ulang facet visibility berdasarkan currentData hasil pencarian
+    updateFacetVisibility(currentData);
+
+    if (window.innerWidth <= 860) toggleSidebar();
+    toggleSearchControls();
+}
+
+	function debounce(func, wait) {
+		return function (...args) {
+			clearTimeout(debounceTimer);
+			debounceTimer = setTimeout(() => func.apply(this, args), wait);
+		};
+	}
+     
+    // ⭐️ EVENT LISTENER INPUT (DEBOUNCE UNTUK FILTERING)
+	searchInput.addEventListener('input', debounce(() => {
+		active.search = searchInput.value;
+		updateSidebarUI(); 
+		applyFilters();
+		updateUrl();
+	}, 300));
+
+    // ⭐️ EVENT LISTENER INPUT (LANGSUNG UNTUK KONTROL UI)
+    searchInput.addEventListener('input', toggleSearchControls);
+
+// ⭐️ EVENT LISTENER CLEAR BUTTON
+if (clearBtn) {
+    clearBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        resetFilter(false); 
+        toggleSearchControls(); 
+        searchInput.focus(); 
+    });
+}
+
+	// ⭐️ DEFINISI FUNGSI BARU UNTUK MENAMPILKAN NOTIFIKASI
+	function showCopyNotification() {
+		if (!copyNotification) return;
+
+		copyNotification.classList.add('show');
+
+		setTimeout(() => {
+			copyNotification.classList.remove('show');
+		}, 1500); 
+	}
+	
+    // ⭐️ EVENT LISTENER COPY BUTTON
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const textToCopy = searchInput.value;
+
+            try {
+                await navigator.clipboard.writeText(textToCopy);
+                showCopyNotification();
+            } catch (err) {
+                console.error('Gagal menyalin teks: ', err);
+            }
+        });
+    }
+
+
+	btnReset.addEventListener('click', () => resetFilter(true));
+	btnAll.addEventListener('click', showAll);
+
+	window.addEventListener('scroll', () => {
+		if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 120) {
+			renderProducts();
+		}
+	}, { passive: true });
+
+	window.addEventListener('popstate', (event) => {
+        // Karena multi-select tidak disimpan di history state/URL, kita reset saja
+        active.multi = {}; // Pastikan filter multi-select bersih saat popstate
+        
+		if (event.state) {
+			active.cat = event.state.cat;
+            active.sub = event.state.sub;
+            active.subsub = event.state.subsub;
+            active.search = event.state.search;
+		} else {
+            // Jika state kosong, baca ulang dari URL
+			readUrlAndApply();
+			return;
+		}
+        
+		if (active.search) {
+			searchInput.value = active.search;
+		} else {
+			searchInput.value = '';
+		}
+		applyFilters();
+		updateSidebarUI();
+        toggleSearchControls();
+	});
+
+	document.addEventListener('DOMContentLoaded', () => {
+	  buildSidebar();
+	  loadProducts();
+	  toggleSearchControls(); 
+	});
   </script>
+<script>
+/**
+ * DATABASE KATEGORI (Data Mapping)
+ * Gunakan ID/Slug yang sesuai dengan nilai di URL parameter
+ */
+const categoryData = {
+    'skincare': {
+        desc: 'deskripsi skincare',
+        intro: 'konten skincare'
+    },
+    'hair care': {
+        desc: 'deskripsi hair care',
+        intro: 'intro/konten hair care'
+    },
+    'body care': {
+        desc: 'deskripsi body care',
+        intro: 'intro/konten body care'
+    }
+    // Tambahkan kategori lain di sini...
+};
+
+/**
+ * FUNGSI UTAMA: Refresh SEO (Title, H1, Meta, Canonical)
+ */
+function refreshSEO() {
+    const params = new URLSearchParams(window.location.search);
+    
+    // 1. Ambil Parameter (Gunakan toLowerCase agar tidak case-sensitive)
+    const cat = params.get('cat')?.toLowerCase();
+    const sub = params.get('sub')?.toLowerCase();
+    const subsub = params.get('subsub')?.toLowerCase();
+    const query = params.get('q');
+
+    // 2. Fallback Logic untuk Data Konten
+    const defaultData = {
+        desc: 'Katalog produk berkualitas dengan harga bersaing. Belanja mudah di GitHub Pages Store.',
+        intro: 'Jelajahi berbagai pilihan produk unggulan kami di bawah ini.'
+    };
+    // Prioritas: Subsub > Sub > Cat
+    const seoData = categoryData[subsub] || categoryData[sub] || categoryData[cat] || defaultData;
+
+    // 3. Format Title & H1 (Mengubah 'laptop-gaming' menjadi 'Laptop Gaming')
+    const rawTitle = query ? `Pencarian: ${query}` : (subsub || sub || cat || "Katalog Produk");
+    const formattedTitle = rawTitle.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+    // 4. Update DOM Elements
+    // Update Document Title
+    document.title = `${formattedTitle} | Nama Toko Anda`;
+    
+    // Update H1
+    const h1Element = document.getElementById('main-title');
+    if (h1Element) h1Element.textContent = formattedTitle;
+
+    // Update Meta Description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+        metaDesc.setAttribute("content", query ? `Hasil pencarian untuk "${query}" di katalog kami.` : seoData.desc);
+    }
+
+    // Update Intro Text
+    const introEl = document.getElementById('category-intro');
+    if (introEl) introEl.textContent = seoData.intro;
+
+    // 5. Update Canonical Tag secara Dinamis
+    updateCanonical(params);
+
+    // 6. Penanganan Noindex untuk Pencarian (Optional tapi disarankan)
+    updateRobots(params);
+}
+
+/**
+ * FUNGSI PENDUKUNG: Canonical & Robots
+ */
+function updateCanonical(params) {
+    let canonicalUrl = window.location.origin + window.location.pathname;
+    let seoParams = [];
+    
+    // Hanya sertakan parameter kategori dalam canonical agar tidak duplikat
+    ['cat', 'sub', 'subsub'].forEach(key => {
+        if (params.has(key)) seoParams.push(`${key}=${params.get(key)}`);
+    });
+
+    if (seoParams.length > 0) canonicalUrl += '?' + seoParams.join('&');
+
+    let linkCanonical = document.querySelector('link[rel="canonical"]') || document.createElement('link');
+    linkCanonical.setAttribute('rel', 'canonical');
+    linkCanonical.setAttribute('href', canonicalUrl);
+    if (!document.head.contains(linkCanonical)) document.head.appendChild(linkCanonical);
+}
+
+function updateRobots(params) {
+    // Jika ada parameter pencarian (q), beri tahu bot untuk tidak mengindeks
+    if (params.has('q')) {
+        let metaRobots = document.querySelector('meta[name="robots"]') || document.createElement('meta');
+        metaRobots.setAttribute('name', 'robots');
+        metaRobots.setAttribute('content', 'noindex, follow');
+        if (!document.head.contains(metaRobots)) document.head.appendChild(metaRobots);
+    }
+}
+
+// Jalankan saat pertama kali halaman dimuat
+window.addEventListener('DOMContentLoaded', refreshSEO);
+
+// Jalankan saat user menekan tombol Back/Forward di browser
+window.addEventListener('popstate', refreshSEO);
+</script>
   <script>
 document.addEventListener("click",function(t){let e=t.target.closest(".affiliate-btn");if(e){let i=e.closest(".quick-link-shop");if(i){let n=i.getAttribute("data-id"),a=i.getAttribute("data-name"),c=e.getAttribute("data-type");"undefined"!=typeof fbq&&fbq("trackCustom","ClickToAffiliate",{content_ids:[n],content_type:"product",content_name:a,content_category:c}),console.log(`Terkirim: ${a} via ${c}`)}}});
   </script>
