@@ -600,7 +600,7 @@ function refreshSEO() {
     };
     const seoData = categoryData[subsub] || categoryData[sub] || categoryData[cat] || defaultData;
     // 3. Format Title & H1
-    const rawTitle = query ? `Pencarian: ${query}` : (subsub || sub || cat || "Fashion Muslim");
+    const rawTitle = query ? `${query}` : (subsub || sub || cat || "Fashion Muslim");
     const formattedTitle = rawTitle.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     // 4. Update DOM Elements
     document.title = `${formattedTitle} | Modenyania`;
